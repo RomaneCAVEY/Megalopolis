@@ -1,0 +1,28 @@
+module.exports = {
+    env: {
+        "browser": true,
+        "jest": true,
+        "node": true,
+    },
+    extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
+    parser: '@typescript-eslint/parser',
+    plugins: ['@typescript-eslint'],
+    rules: {
+	"no-unused-vars": "off",
+	"@typescript-eslint/no-inferrable-types" : "off",
+	"@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "array-callback-return": "error",
+        "consistent-return": "error",
+        "eqeqeq": "error",
+        "no-eval": "error",
+        "no-fallthrough": "error",
+        "no-mixed-spaces-and-tabs": "error",
+        "no-undef": "error",
+        "no-unreachable": "error",
+        "no-var": "error",
+        "prefer-const": "error",
+        "semi": "error",
+},
+    root: true,
+};

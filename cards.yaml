@@ -1,0 +1,107 @@
+---
+cards:
+  arrondissements:
+    score: 0
+    rule: |
+      1pt/quartier pour les plus grands arrondissements de chacun des
+      4 types (un arrondissement est une composante connexe de quartiers)
+  reduire_la_circulation:
+    score: 0
+    rule: |
+      -1pt/route dans votre ville
+  sortie_de_route:
+    score: 1
+    rule: |
+      1pt/route qui se termine pas en périphérie de la ville
+      -1pt/route qui se termine en périphérie de la ville (une carte
+      est en périphérie si elle se trouve sur le bord du plateau)
+  ville_fleurie:
+    score: 2
+    rule: |
+      1pt/chaque ligne et colonne du plateau contenant exactement 3
+      parcs
+      -1pt/chaque ligne et colonne ne contenant aucun parc
+  passez_au_vert:
+    score: 3
+    rule: |
+      1pt par parc dans la ville
+      -3pt par quartier industriel dans la ville
+  fete_de_quartiers:
+    score: 4
+    rule: |
+      Marquez des points pour les groupes de quartiers de même couleur
+      en 2x2. Un quartier peut marquer pour plusieurs groupes. On peut
+      marquer des points pour plusieurs quartiers
+      Nombre de groupes | 0  | 1  | 2  | 3 | 4 | 5+
+      Points            | -8 | -5 | -2 | 1 | 4 | 7
+  pousser_et_empiler:
+    score: 5
+    rule: |
+      2pts/quartier industriel adjacent uniquement à des quartiers
+      commerciaux et industriels
+  chef_de_chantier:
+    score: 6
+    rule: |
+      Soustraire le nombre de quartiers du plus grand arrondissement
+      industriel a celui du plus grand arrondissement
+      résidentiel. Marquez ce nombre de points.
+  parcs_urbains:
+    score: 7
+    rule: |
+      1pt/quartier parc à l'intérieure de la ville
+      -2pt/quartier parc en périphérie
+  les_banlieusards:
+    score: 8
+    rule: |
+      1pt/quartier parc adjacent à votre plus grand arrondissement
+      résidentiel
+      -2pt/quartier industriel adjacent à votre plus grand arrondissement
+      résidentiel
+  jungle_de_beton:
+    score: 9
+    rule: |
+      1pt/quartier industriel dont un angle touche au moins un autre
+      angle d'un quartier industriel (i.e pas un bord)
+  zone_commercante:
+    score: 10
+    rule: |
+      1pt/quartier commercial dans une ligne ou une colonne, en
+      prenant le maximum possible sur toutes les lignes et colonnes
+  marches_de_village:
+    score: 11
+    rule: |
+      2pt/quartier commercial situé entre deux quartiers résidentiels
+      reliés par une route.
+  autoroute:
+    score: 12
+    rule: |
+      1pt/tous les 2 tronçons de route de votre route la plus longue
+  de_parc_en_parc:
+    score: 13
+    rule: |
+      3pt/route avec un parc aux deux extrémités
+  rocades:
+    score: 14
+    rule: |
+      1pt/tronçon de route pour toutes les routes formant une boucle
+      fermée. Vous pouvez marquer pour plusieurs routes.
+  periurbanisation:
+    score: 15
+    rule: |
+      2pt/quartier résidentiel adjacent à 2 ou plus quartiers
+      industriel (sur un bord)
+  trajet_du_matin:
+    score: 16
+    rule: |
+      2pt/route qui traverse à la fois un quartier résidentiel et un
+      quartier commercial
+  pieges_a_touristes:
+    score: 17
+    rule: |
+      1pt/bord d'un quartier commercial sur la périphérie de la ville
+  sprawlopolis:
+    score: 18
+    rule: |
+      Additionnez le nombre de quarties de votre plus grande ligne au
+      nombre de quarties de votre plus grand colonne, sans compter les
+      espaces vides. Marquez ce nombre de points.

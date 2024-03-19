@@ -10,4 +10,4 @@ function createNeighborhood() : Color
     return Color.Green;
 }
 
-export {Color};
+export {Color, createNeighborhood};

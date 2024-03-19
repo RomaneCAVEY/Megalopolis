@@ -1,11 +1,26 @@
-type Road = import("./road.js");
-type Color = import("./neighborhood.js");
+import {Road, createRoad} from "./road.js";
+import {Color, createNeighborhood} from "./neighborhood.js";
 
 type TileDict<T> = {nw: T, ne: T, se: T, sw: T};
 
-type Tile = { roads: TileDict<Road>, neighborhoods: TileDict<Color>};
+type Tile = {roads: TileDict<Road>, neighborhoods: TileDict<Color>};
 
-function createTile()
+function createRoadDict(): TileDict<Road>
 {
-    let dict = {high_left:{}, high_right:[], low_left:"", low_right:""};
+    return {nw: createRoad(), ne: createRoad(), se: createRoad(), sw: createRoad()};
+}
+
+function createNeighborhoodDict(): TileDict<Color>
+{
+    return {nw: createNeighborhood(), ne: createNeighborhood(), se: createNeighborhood(), sw: createNeighborhood()};
+}
+
+function createTile(): Tile
+{
+    return {roads: createRoadDict(), neighborhoods: createNeighborhoodDict()};
+}
+
+function flipTile(tile: Tile): Tile
+{
+    return tile; // TODO: flip the tile
 }

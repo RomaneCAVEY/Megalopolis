@@ -6,4 +6,4 @@ function createRoad() : Road
     return road;
 }
 
-export {Road};
+export {Road, createRoad};

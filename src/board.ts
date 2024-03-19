@@ -14,7 +14,7 @@ function initBoard(): Board
 
 function findQuarter(board: Board, x: number, y: number): Quarter
 {
-    let b: Board = board.filter((e: Quarter): boolean => (e !== nil && e.x === x)).filter((e: Quarter): boolean => (e!== nil && e.y === y));
+    const b: Board = board.filter((e: Quarter): boolean => (e !== nil && e.x === x)).filter((e: Quarter): boolean => (e!== nil && e.y === y));
     if (b.size === 0)
 	return nil;
     else
@@ -35,7 +35,7 @@ function addQuarterToBoard(board: Board, quarter: Quarter): Board
 
 function removeQuarterFromBoard(board: Board, x: number, y: number) : Board
 {
-    let q = findQuarter(board, x, y);
+    const q = findQuarter(board, x, y);
     let nb = board;
     nb = board.slice(nb.indexOf(q), 1);
     return nb;

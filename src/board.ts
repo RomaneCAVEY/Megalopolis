@@ -40,3 +40,6 @@ function removeQuarterFromBoard(board: Board, x: number, y: number) : Board
     nb = board.slice(nb.indexOf(q), 1);
     return nb;
 }
+
+
+export{initBoard,addQuarterToBoard,removeQuarterFromBoard}

@@ -1,6 +1,6 @@
-import * as B from "./board.js"
+import * as B from "./board.js";
 
-const board      = B.initBoard(); 
+const board = B.initBoard(); 
 /* objectives = initializeObjectives()
 objScore   = objectives.reduce((aTempScore, anObjective) => {
       return aTempScore + objectiveScore(anObjective);

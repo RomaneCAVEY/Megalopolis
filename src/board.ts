@@ -42,4 +42,4 @@ function removeQuarterFromBoard(board: Board, x: number, y: number) : Board
 }
 
 
-export{initBoard,addQuarterToBoard,removeQuarterFromBoard}
+export{initBoard,addQuarterToBoard,removeQuarterFromBoard};

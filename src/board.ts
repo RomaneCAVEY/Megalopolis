@@ -11,6 +11,11 @@ function initBoard(): Board
     return List<Quarter>();
 }
 
+function board_is_empty(board : Board) : boolean
+{	
+	return board.isEmpty();
+}
+
 
 function findQuarter(board: Board, x: number, y: number): Quarter
 {
@@ -42,4 +47,4 @@ function removeQuarterFromBoard(board: Board, x: number, y: number) : Board
 }
 
 
-export{initBoard,addQuarterToBoard,removeQuarterFromBoard};
+export{initBoard,addQuarterToBoard,removeQuarterFromBoard,Board,Quarter,board_is_empty};

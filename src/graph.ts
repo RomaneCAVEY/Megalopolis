@@ -11,3 +11,6 @@ function addToGraph<T>(graph: Graph<T>, vertex: T): Graph<T>
 {
     return initGraph();
 }
+
+
+export{Graph};

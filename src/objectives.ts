@@ -37,40 +37,49 @@ function Flowers_city( board : B.Board ) : number
 	const max_x = ( board.map( (e: B.Quarter) => ( e!==C.nil ) ? e.get("x") : 0 ) ).max();
 	const max_y = ( board.map( (e: B.Quarter) => ( e!==C.nil ) ? e.get("y") : 0 ) ).max();
 	const min_y = ( board.map( (e: B.Quarter) => ( e!==C.nil ) ? e.get("y") : 0 ) ).min();
-
-	function line(x:number | undefined, board:B.Board, c:number) 
+	function addPoints()
 	{
-		if (x === undefined)
-			return 0;
+		function line(x:number | undefined, board:B.Board, c:number) 
+		{
+			if (x === undefined)
+				return 0;
 
-		if ( x === max_x)
-			return c;
+			if ( x === max_x)
+				return c;
 
-		else {
-			if ( ((board.filter( (e: B.Quarter) => e !== C.nil && e.get("x") === x && e.get("color") === N.Color.Green )).size) === 3 )
-				return line(x+1, board, c+1);
-			else
-				return line(x+1, board, c);
+			else {
+				if ( ((board.filter( (e: B.Quarter) => e !== C.nil && e.get("x") === x && e.get("color") === N.Color.Green )).size) === 3 )
+					return line(x+1, board, c+1);
+				else
+					return line(x+1, board, c);
+			}
 		}
+
+		function column(y:number | undefined, board:B.Board, c:number) 
+		{
+			if (y === undefined)
+				return 0;
+
+			if ( y === max_y)
+				return c;
+			
+			else {
+				if ( ((board.filter( (e: B.Quarter)=> e !== C.nil && e.get("y") === y && e.get("color") === N.Color.Green )).size) === 3 )
+					return column(y+1, board, c+1);
+				else
+					return column(y+1, board, c);
+			}
+		}
+
+		return line(min_x,board,0)+column(min_y,board,0);
 	}
 
-	function column(y:number | undefined, board:B.Board, c:number) 
+	function removePoints()
 	{
-		if (y === undefined)
-			return 0;
-
-		if ( y === max_y)
-			return c;
-		
-		else {
-			if ( ((board.filter( (e: B.Quarter)=> e !== C.nil && e.get("y") === y && e.get("color") === N.Color.Green )).size) === 3 )
-				return column(y+1, board, c+1);
-			else
-				return column(y+1, board, c);
-		}
+		return 0; // TO DO : retirer un point par colonne et ligne sans jardin
 	}
 
-	return line(min_x,board,0)+column(min_y,board,0);
+	return addPoints() + removePoints();
 
 	
 	

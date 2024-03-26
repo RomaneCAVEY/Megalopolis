@@ -23,5 +23,4 @@ function addEdge<T>(graph: Graph<T>, indexV1: number, indexV2: number): Graph<T>
     return newGraph.set("adj", graph.get('adj').set(indexV2, newAdj2));
 }
 
-//function addVertices( board: Board, kind ){} // kind is road or color
-//function addEdge (board: Board, kind ) {}
+export {Graph, initGraph, addVertex, addEdge};

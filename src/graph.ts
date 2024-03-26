@@ -27,6 +27,3 @@ function addEdge<T>(graph: Graph<T>, indexV1: number, indexV2: number): Graph<T>
 }
 
 export {Graph, initGraph, addVertex, addEdge};
-
-
-export{Graph};

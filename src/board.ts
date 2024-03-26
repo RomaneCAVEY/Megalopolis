@@ -47,8 +47,7 @@ function removeQuarterFromBoard(board: Board, x: number, y: number) : Board
 function findQuarterIndexInGraph(graph: G.Graph<Quarter>, x: number, y: number): number
 {
     return graph.get('vertices').findIndex(
-	(v: Quarter) => (v !== nil && v.get('x') === x
-	    && v.get('y') === y)
+	(v: Quarter) => (v !== nil && v.get('x') === x && v.get('y') === y)
     );
 }
 
@@ -141,7 +140,6 @@ function neighborhoodCase(graph: G.Graph<Quarter>, quarter: Quarter, board: Boar
     return newGraph;
 }
 
-			      
 
 
 export{initBoard,addQuarterToBoard,removeQuarterFromBoard};

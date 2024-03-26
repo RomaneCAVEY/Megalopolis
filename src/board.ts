@@ -3,8 +3,8 @@ import {Road} from "./road.js";
 import {Color} from "./neighborhood.js";
 import * as G from "./graph.js";
 
-import {List} from 'immutable';
-type Quarter = {x: number, y: number, road: Road, color: Color} | undefined; // nil
+import {List, MapOf} from 'immutable';
+type Quarter = MapOf<{x: number, y: number, road: Road, color: Color}> | undefined; // nil
 type Board = List<Quarter>;
 
 function initBoard(): Board
@@ -14,7 +14,7 @@ function initBoard(): Board
 
 function findQuarter(board: Board, x: number, y: number): Quarter
 {
-    const b: Board = board.filter((e: Quarter): boolean => (e !== nil && e.x === x)).filter((e: Quarter): boolean => (e!== nil && e.y === y));
+    const b: Board = board.filter((e: Quarter): boolean => (e !== nil && e.get('x') === x)).filter((e: Quarter): boolean => (e!== nil && e.get('y') === y));
     if (b.size === 0)
 	return nil;
     else
@@ -26,8 +26,8 @@ function addQuarterToBoard(board: Board, quarter: Quarter): Board
     if (quarter === nil)
 	return board;
     let nb: Board = board;
-    if (findQuarter(board, quarter.x, quarter.y) !== nil) {
-	nb = removeQuarterFromBoard(nb, quarter.x, quarter.y);
+    if (findQuarter(board, quarter.get('x'), quarter.get('y')) !== nil) {
+	nb = removeQuarterFromBoard(nb, quarter.get('x'), quarter.get('y'));
     }
     nb = nb.push(quarter);
     return nb;
@@ -41,49 +41,107 @@ function removeQuarterFromBoard(board: Board, x: number, y: number) : Board
     return nb;
 }
 
-function buildRoadGraph(board: Board) : G.Graph<Road>
+
+
+
+function findQuarterIndexInGraph(graph: G.Graph<Quarter>, x: number, y: number): number
 {
-    const graph: Graph = board.reduce(
-	(graph: G.Graph, q: Quarter): G.Graph => G.addVertex(graph, q),
-	G.initGraph<Road>()
+    return graph.get('vertices').findIndex(
+	(v: Quarter) => (v !== nil && v.get('x') === x
+	    && v.get('y') === y)
+    );
+}
+
+
+
+function buildRoadGraph(board: Board) : G.Graph<Quarter>
+{
+    const graph: G.Graph<Quarter> = board.reduce(
+	(graph: G.Graph<Quarter>, q: Quarter): G.Graph<Quarter> => G.addVertex(graph, q),
+	G.initGraph<Quarter>()
     );
 
     return board.reduce(
-	(q: Quarter): G.Graph<Road> => roadCase(graph, q, board),
+	(g: G.Graph<Quarter>, q: Quarter): G.Graph<Quarter> => roadCase(g, q, board),
 	graph
     );
 }
 
-function roadCase(graph: G.Graph, quarter: Quarter, board: Board) : G.Graph<Road>
+function roadCase(graph: G.Graph<Quarter>, quarter: Quarter, board: Board) : G.Graph<Quarter>
 {
+    if (quarter === nil)
+	return graph;
     // TODO : améliorer la pureté
-    const x = quarter.get('x');
-    const y = quarter.get('y');
+    const x: number = quarter.get('x');
+    const y: number = quarter.get('y');
 
-    const newGraph = graph;
+    let newGraph: G.Graph<Quarter> = graph; // let non fonctionnel
+
+    const qy1 = findQuarter(board, x, y + 1);
+    const qyn1 = findQuarter(board, x, y - 1);
+    const qx1 = findQuarter(board, x + 1, y);
+    const qxn1 = findQuarter(board, x - 1, y);
     
-    if (quarter.get('road').get('north') === true && findQuarter(board, x, y + 1).get('road').get('south') === true)
+    
+    if (quarter.get('road').get('north') === true && qy1 !== nil && qy1.get('road').get('south') === true)
 	newGraph = G.addEdge(newGraph, findQuarterIndexInGraph(graph, x, y), findQuarterIndexInGraph(graph, x, y + 1));
 
-    if (quarter.get('road').get('east') === true && findQuarter(board, x + 1, y).get('road').get('west') === true)
+    if (quarter.get('road').get('east') === true && qx1 !== nil && qx1.get('road').get('west') === true)
 	newGraph = G.addEdge(newGraph, findQuarterIndexInGraph(graph, x, y), findQuarterIndexInGraph(graph, x + 1, y));
 
-    if (quarter.get('road').get('south') === true && findQuarter(board, x, y - 1).get('road').get('north') === true)
+    if (quarter.get('road').get('south') === true && qyn1 !== nil && qyn1.get('road').get('north') === true)
 	newGraph = G.addEdge(newGraph, findQuarterIndexInGraph(graph, x, y), findQuarterIndexInGraph(graph, x, y - 1));
 
-    if (quarter.get('road').get('west') === true && findQuarter(board, x - 1, y).get('road').get('east') === true)
+    if (quarter.get('road').get('west') === true && qxn1 !== nil && qxn1.get('road').get('east') === true)
 	newGraph = G.addEdge(newGraph, findQuarterIndexInGraph(graph, x, y), findQuarterIndexInGraph(graph, x - 1, y));
 
     return newGraph;
 }
 
-function findQuarterIndexInGraph(graph: G.graph, x: number, y: number): number
+function buildNeighborhoodGraph(board: Board) : G.Graph<Quarter>
 {
-    return graph.get('vertices').findIndex(
-	(v) => (v.get('x') === x
-	    && v.get('y') === y)
+    const graph: G.Graph<Quarter> = board.reduce(
+	(graph: G.Graph<Quarter>, q: Quarter): G.Graph<Quarter> => G.addVertex(graph, q),
+	G.initGraph<Quarter>()
     );
-}			      
+
+    return board.reduce(
+	(g: G.Graph<Quarter> ,q: Quarter): G.Graph<Quarter> => roadCase(graph, q, board),
+	graph
+    );
+}
+
+function neighborhoodCase(graph: G.Graph<Quarter>, quarter: Quarter, board: Board) : G.Graph<Quarter>
+{
+    if (quarter === nil)
+	return graph;
+    
+    const x: number = quarter.get('x');
+    const y: number = quarter.get('y');
+
+    let newGraph: G.Graph<Quarter> = graph; // let non fonctionnel
+
+    const qy1 = findQuarter(board, x, y + 1); 
+    const qyn1 = findQuarter(board, x, y - 1);
+    const qx1 = findQuarter(board, x + 1, y);
+    const qxn1 = findQuarter(board, x - 1, y);
+    
+    if (qy1 !== nil && quarter.get('color') === qy1.get('color'))
+	newGraph = G.addEdge(newGraph, findQuarterIndexInGraph(graph, x, y), findQuarterIndexInGraph(graph, x, y + 1));
+
+    if (qx1 !== nil && quarter.get('color') === qx1.get('color'))
+	newGraph = G.addEdge(newGraph, findQuarterIndexInGraph(graph, x, y), findQuarterIndexInGraph(graph, x + 1, y));
+
+    if (qyn1 !== nil && quarter.get('color') === qyn1.get('color'))
+	newGraph = G.addEdge(newGraph, findQuarterIndexInGraph(graph, x, y), findQuarterIndexInGraph(graph, x, y - 1));
+
+    if (qxn1 !== nil && quarter.get('color') === qxn1.get('color'))
+	newGraph = G.addEdge(newGraph, findQuarterIndexInGraph(graph, x, y), findQuarterIndexInGraph(graph, x - 1, y));
+    
+    return newGraph;
+}
+
+			      
 
 
 export{initBoard,addQuarterToBoard,removeQuarterFromBoard};

@@ -17,6 +17,9 @@ function addVertex<T>(graph: Graph<T>, vertex: T): Graph<T>
 
 function addEdge<T>(graph: Graph<T>, indexV1: number, indexV2: number): Graph<T>
 {
+    if (graph.get('adj').get(indexV1, List<number>()).includes(indexV2))
+	return graph; // Edge already exists
+    
     const newAdj1 = graph.get('adj').get(indexV1, List<number>()).push(indexV2);
     const newGraph = graph.set('adj', graph.get('adj').set(indexV1, newAdj1));
     const newAdj2 = newGraph.get('adj').get(indexV2, List<number>()).push(indexV1);

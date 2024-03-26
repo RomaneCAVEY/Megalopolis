@@ -33,10 +33,10 @@ parcs
 -1pt/chaque ligne et colonne ne contenant aucun parc */
 function Flowers_city( board : B.Board ) : number
 {
-	const min_x = ( board.map( (e: B.Quarter) => ( e!==C.nil ) ? e.x : 0 ) ).min();
-	const max_x = ( board.map( (e: B.Quarter) => ( e!==C.nil ) ? e.x : 0 ) ).max();
-	const max_y = ( board.map( (e: B.Quarter) => ( e!==C.nil ) ? e.y : 0 ) ).max();
-	const min_y = ( board.map( (e: B.Quarter) => ( e!==C.nil ) ? e.y : 0 ) ).min();
+	const min_x = ( board.map( (e: B.Quarter) => ( e!==C.nil ) ? e.get("x") : 0 ) ).min();
+	const max_x = ( board.map( (e: B.Quarter) => ( e!==C.nil ) ? e.get("x") : 0 ) ).max();
+	const max_y = ( board.map( (e: B.Quarter) => ( e!==C.nil ) ? e.get("y") : 0 ) ).max();
+	const min_y = ( board.map( (e: B.Quarter) => ( e!==C.nil ) ? e.get("y") : 0 ) ).min();
 
 	function line(x:number | undefined, board:B.Board, c:number) 
 	{
@@ -47,7 +47,7 @@ function Flowers_city( board : B.Board ) : number
 			return c;
 
 		else {
-			if ( ((board.filter( (e: B.Quarter) => e!==C.nil && e.x===x && e.color===N.Color.Green )).size) === 3 )
+			if ( ((board.filter( (e: B.Quarter) => e !== C.nil && e.get("x") === x && e.get("color") === N.Color.Green )).size) === 3 )
 				return line(x+1, board, c+1);
 			else
 				return line(x+1, board, c);
@@ -63,7 +63,7 @@ function Flowers_city( board : B.Board ) : number
 			return c;
 		
 		else {
-			if ( ((board.filter( (e: B.Quarter)=> e!==C.nil && e.y===y && e.color===N.Color.Green )).size) === 3 )
+			if ( ((board.filter( (e: B.Quarter)=> e !== C.nil && e.get("y") === y && e.get("color") === N.Color.Green )).size) === 3 )
 				return column(y+1, board, c+1);
 			else
 				return column(y+1, board, c);

@@ -33,8 +33,16 @@ function getVertices<T>(graph: Graph<T>): List<T>
 
 function getVertexNeighbors<T>(graph: Graph<T>, vertexIndex: number): List<T>
 {
-    const adj = graph.get('adj').get(vertexIndex);
-    return graph.get('vertices').filter((key, e) => adj.includes(key));
+    const adj: List<number> = graph.get('adj').get(vertexIndex);
+    return graph.get('vertices').filter((e, key) => adj !== undefined && adj.includes(key));
 }
+
+/*function connexComp<T>(notVisited: List<T>, )
+
+function getConnexComponents<T>(graph: Graph<T>): List<List<T>>
+{
+    const notVisited: List<T> = graph.get('vertices');
+    return List();
+}*/
 
 export {Graph, initGraph, addVertex, addEdge, getVertices, getVertexNeighbors};

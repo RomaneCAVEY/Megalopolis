@@ -33,7 +33,7 @@ function getVertices<T>(graph: Graph<T>): List<T>
 
 function getVertexNeighbors<T>(graph: Graph<T>, vertexIndex: number): List<T>
 {
-    const adj: List<number> = graph.get('adj').get(vertexIndex);
+    const adj: List<number> = graph.get('adj').get(vertexIndex, List());
     return graph.get('vertices').filter((e, key) => adj !== undefined && adj.includes(key));
 }
 

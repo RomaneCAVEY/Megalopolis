@@ -2,7 +2,7 @@ import * as B from "./board";
 import * as G from "./graph";
 import * as N from "./neighborhood";
 import * as R from "./road";
-import * as C from"./common";
+import * as C from "./common";
 import {List, MapOf} from 'immutable';
 
 enum Objectives {
@@ -29,15 +29,18 @@ function Quarter(graph: G.Graph<N.Color>): number{
 	
 }
 
+
 /* 
 ville_fleurie:
 score: 2
 rule: |
 1pt/chaque ligne et colonne du plateau contenant exactement 3
 parcs
--1pt/chaque ligne et colonne ne contenant aucun parc */
+-1pt/chaque ligne et colonne ne contenant aucun parc 
+*/
 function Flowers_city( board : B.Board ) : number
 {
+	
 	const min_x = ( board.map( (e: B.Quarter) => ( e!==C.nil ) ? e.get("x") : 0 ) ).min();
 	const max_x = ( board.map( (e: B.Quarter) => ( e!==C.nil ) ? e.get("x") : 0 ) ).max();
 	const max_y = ( board.map( (e: B.Quarter) => ( e!==C.nil ) ? e.get("y") : 0 ) ).max();

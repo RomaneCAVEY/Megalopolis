@@ -8,6 +8,12 @@ describe('Graph tests', () => {
         expect(G.isEmpty(g)).toBe(true);
     });
 
+    test('isEmpty on non-empty graph should return false', () => {
+	let g = G.initGraph<number>();
+	g = G.addVertex(g, 1);
+	expect(G.isEmpty(g)).toBe(false);
+    });
+
     test('addVertex should add an vertex to the graph', () => {
         let g: G.Graph<number> = G.initGraph<number>();
 	g = G.addVertex(g,10);
@@ -24,6 +30,15 @@ describe('Graph tests', () => {
 	expect(g.get('adj').size).toBe(2);
 	expect(g.get('adj').get(0, List()).get(0)).toBe(1);
 	expect(g.get('adj').get(1, List()).get(0)).toBe(0);
+    });
+
+    test('addEdge should not add an already existing edge', () => {
+        let g: G.Graph<number> = G.initGraph<number>();
+	g = G.addVertex(g,10);
+	g = G.addVertex(g,11);
+	g = G.addEdge(g,0,1);
+	
+	expect(G.addEdge(g, 0, 1)).toBe(g);
     });
     
     test('getVertices should extract the list of vertices from the graphe', () => {
@@ -81,7 +96,9 @@ describe('Graph tests', () => {
 	expect(listListVertices.get(0, List()).get(0)).toBe(10);
 	expect(listListVertices.get(1, List()).get(0)).toBe(11);
 	expect(listListVertices.get(2, List()).get(0)).toBe(15);
-	
+
+	const lv = G.getConnexComponents(G.initGraph<number>());
+	expect(lv.size).toBe(0);
      });
     
  });

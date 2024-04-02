@@ -64,9 +64,6 @@ function connexCompRec<T>(graph: Graph<T>,
     const newToVisit = (toVisit.size === 0) ? List<T>([notVisited.first()]) : toVisit;
     const newCurrentClass = (toVisit.size === 0) ? newClasses.size : currentClass;
     const newNewClasses = (toVisit.size === 0) ? newClasses.push(List<T>()) : newClasses;
-
-/*    if (newToVisit === undefined || newToVisit === null)
-        throw new Error("newToVisit is undefined. This should never happen.");*/
     
     // For each neighbor, do a recursive function call.
     const r = newToVisit.reduce(

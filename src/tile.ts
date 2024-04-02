@@ -1,19 +1,19 @@
-import {Road, createEmptyRoad} from "./road.js";
-import {Color, createNeighborhood, getNeighborhood} from "./neighborhood.js";
+import * as R from "./road.js";
+import * as N from "./neighborhood.js";
 import {Map, MapOf} from "immutable";
 
 type TileDict<T> = MapOf<{nw: T, ne: T, se: T, sw: T}>;
 
-type Tile = MapOf<{roads: TileDict<Road>, neighborhoods: TileDict<Color>}>;
+type Tile = MapOf<{roads: TileDict<R.Road>, neighborhoods: TileDict<N.Color>}>;
 
-function createEmptyRoadDict(): TileDict<Road>
+function createEmptyRoadDict(): TileDict<R.Road>
 {
-    return Map({nw: createEmptyRoad(), ne: createEmptyRoad(), se: createEmptyRoad(), sw: createEmptyRoad()});
+    return Map({nw: R.createEmptyRoad(), ne: R.createEmptyRoad(), se: R.createEmptyRoad(), sw: R.createEmptyRoad()});
 }
 
-function createEmptyNeighborhoodDict(): TileDict<Color>
+function createEmptyNeighborhoodDict(): TileDict<N.Color>
 {
-    return Map({nw: createNeighborhood(), ne: createNeighborhood(), se: createNeighborhood(), sw: createNeighborhood()});
+    return Map({nw: N.getGreenNeighborhood(), ne: N.getGreenNeighborhood(), se: N.getGreenNeighborhood(), sw: N.getGreenNeighborhood()});
 }
 
 function createEmptyTile(): Tile
@@ -23,17 +23,43 @@ function createEmptyTile(): Tile
 
 
 
-function getRandomNeighborhoodDict() : TileDict<Color>
+function createRandomNeighborhoodDict() : TileDict<N.Color>
 {
 	// TO DO : made random genration with Math.random()
-	return Map({nw: getNeighborhood(0), ne: getNeighborhood(1), se: getNeighborhood(2), sw: getNeighborhood(3)});
+	const firstN : number = Math.floor(Math.random() * 4);
+	let secondN : number = Math.floor(Math.random() * 3);
+	let thirdN : number = Math.floor(Math.random() * 2);
+	if (firstN === secondN) 
+		secondN = secondN + 1;
+	if (thirdN === secondN)
+		thirdN = thirdN + 1;
+	if (thirdN === firstN)
+		thirdN = thirdN + 1;
+	if (thirdN === secondN)
+		thirdN = thirdN + 1;
+	const lastN : number = 6 - thirdN - secondN - firstN;
+	return Map({nw: N.createNeighborhood(firstN), ne: N.createNeighborhood(secondN), se: N.createNeighborhood(thirdN), sw: N.createNeighborhood(lastN)});
 }
 
-function getRandomRoadDict(nDict : TileDict<Color>) : TileDict<Road>
+function createRandomRoadDict(nDict : TileDict<N.Color>) : TileDict<R.Road>
 {
-	// let rDict : TileDict<Road> = createEmptyRoadDict();
+	const rDict : TileDict<R.Road> = createEmptyRoadDict();
+	if (nDict.get("ne") !== N.Color.Green)
+		rDict.set("ne", R.createRandomRoad());
+	else if (nDict.get("nw") !== N.Color.Green)
+		rDict.set("nw", R.createRandomRoad());
+	else if (nDict.get("se") !== N.Color.Green)
+		rDict.set("se", R.createRandomRoad());
+	else if (nDict.get("sw") !== N.Color.Green)
+		rDict.set("sw", R.createRandomRoad());
+	return rDict;
+}
 
-	return Map({nw: createEmptyRoad(), ne: createEmptyRoad(), se: createEmptyRoad(), sw: createEmptyRoad()});
+function createRandomTile() : Tile
+{
+	const nDict : TileDict<N.Color> = createRandomNeighborhoodDict();
+	const rDict : TileDict<R.Road> = createRandomRoadDict(nDict);
+	return Map({roads : rDict, neighborhoods : nDict});
 }
 
 function flipTile(tile: Tile): Tile
@@ -41,4 +67,4 @@ function flipTile(tile: Tile): Tile
     return tile; // TODO: flip the tile
 }
 
-export {createEmptyTile, Tile, TileDict};
+export {createEmptyTile, createRandomTile, Tile, TileDict};

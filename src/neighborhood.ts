@@ -5,7 +5,7 @@ enum Color {
     Grey
 }
 
-function createNeighborhood() : Color
+function getGreenNeighborhood() : Color
 {
     return Color.Green;
 }
@@ -16,7 +16,7 @@ function createNeighborhood() : Color
 2 : Red
 3 : Grey
 */
-function getNeighborhood(c : number) : Color
+function createNeighborhood(c : number) : Color
 {
 	if (c%4 === 0)
 		return Color.Green;
@@ -28,4 +28,4 @@ function getNeighborhood(c : number) : Color
 		return Color.Grey;
 }
 
-export {Color, createNeighborhood, getNeighborhood};
+export {Color, createNeighborhood, getGreenNeighborhood};

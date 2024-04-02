@@ -1,10 +1,10 @@
-import * as G from '../src/graph.js'
-import {List} from 'immutable'
+import * as G from '../src/graph.js';
+import {List} from 'immutable';
 
 describe('Graph tests', () => {
     
     test('Empty graph should be empty', () => {
-        let g = G.initGraph<number>();
+        const g = G.initGraph<number>();
         expect(G.isEmpty(g)).toBe(true);
     });
 
@@ -31,7 +31,7 @@ describe('Graph tests', () => {
 	g = G.addVertex(g,10);
 	g = G.addVertex(g,11);
 
-	let listVertices = G.getVertices(g);
+	const listVertices = G.getVertices(g);
 	expect(listVertices.size).toBe(2);
 	expect(listVertices.get(0)).toBe(10);
 	expect(listVertices.get(1)).toBe(11);
@@ -48,12 +48,12 @@ describe('Graph tests', () => {
 	g = G.addEdge(g,0,3);
 
 
-	let listVertices = G.getVertexNeighbors(g, 0);
+	const listVertices = G.getVertexNeighbors(g, 0);
 	expect(listVertices.size).toBe(2);
 	expect(listVertices.get(0)).toBe(12);
 	expect(listVertices.get(1)).toBe(13);
 
-	let listVerticesOrphelin = G.getVertexNeighbors(g, 1);
+	const listVerticesOrphelin = G.getVertexNeighbors(g, 1);
 	expect(listVerticesOrphelin.size).toBe(0);
 
 	
@@ -73,7 +73,7 @@ describe('Graph tests', () => {
 	g = G.addEdge(g,1,4);
 
 
-	let listListVertices = G.getConnexComponents(g);
+	const listListVertices = G.getConnexComponents(g);
 	expect(listListVertices.size).toBe(3);
 	expect(listListVertices.get(0, List()).size).toBe(3);
 	expect(listListVertices.get(1, List()).size).toBe(2);

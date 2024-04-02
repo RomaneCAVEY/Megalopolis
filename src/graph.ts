@@ -26,4 +26,15 @@ function addEdge<T>(graph: Graph<T>, indexV1: number, indexV2: number): Graph<T>
     return newGraph.set("adj", graph.get('adj').set(indexV2, newAdj2));
 }
 
-export {Graph, initGraph, addVertex, addEdge};
+function getVertices<T>(graph: Graph<T>): List<T>
+{
+    return graph.get('vertices');
+}
+
+function getVertexNeighbors<T>(graph: Graph<T>, vertexIndex: number): List<T>
+{
+    const adj = graph.get('adj').get(vertexIndex);
+    return graph.get('vertices').filter((key, e) => adj.includes(key));
+}
+
+export {Graph, initGraph, addVertex, addEdge, getVertices, getVertexNeighbors};

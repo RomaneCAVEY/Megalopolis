@@ -4,6 +4,8 @@ import {Color} from "./neighborhood.js";
 import * as G from "./graph.js";
 
 import {List, MapOf} from 'immutable';
+
+//create two types the board and quarter which compose the board
 type Quarter = MapOf<{x: number, y: number, road: Road, color: Color}> | undefined; // nil
 type Board = List<Quarter>;
 
@@ -17,7 +19,7 @@ function board_is_empty(board : Board) : boolean
 	return board.isEmpty();
 }
 
-
+// find a quarter with coordonate
 function findQuarter(board: Board, x: number, y: number): Quarter
 {
     const b: Board = board.filter((e: Quarter): boolean => (e !== nil && e.get('x') === x)).filter((e: Quarter): boolean => (e!== nil && e.get('y') === y));
@@ -26,6 +28,7 @@ function findQuarter(board: Board, x: number, y: number): Quarter
     else
 	return b.get(0, nil);
 }
+
 
 function addQuarterToBoard(board: Board, quarter: Quarter): Board
 {
@@ -49,7 +52,7 @@ function removeQuarterFromBoard(board: Board, x: number, y: number) : Board
 
 
 
-
+// return index of vertices' list
 function findQuarterIndexInGraph(graph: G.Graph<Quarter>, x: number, y: number): number
 {
     return graph.get('vertices').findIndex(
@@ -58,7 +61,7 @@ function findQuarterIndexInGraph(graph: G.Graph<Quarter>, x: number, y: number):
 }
 
 
-
+// build road graph from board
 function buildRoadGraph(board: Board) : G.Graph<Quarter>
 {
     const graph: G.Graph<Quarter> = board.reduce(
@@ -72,6 +75,7 @@ function buildRoadGraph(board: Board) : G.Graph<Quarter>
     );
 }
 
+// return the road graph after adding an edge if conditions are check
 function roadCase(graph: G.Graph<Quarter>, quarter: Quarter, board: Board) : G.Graph<Quarter>
 {
     if (quarter === nil)
@@ -103,6 +107,8 @@ function roadCase(graph: G.Graph<Quarter>, quarter: Quarter, board: Board) : G.G
     return newGraph;
 }
 
+
+// build neiborhood graph from board
 function buildNeighborhoodGraph(board: Board) : G.Graph<Quarter>
 {
     const graph: G.Graph<Quarter> = board.reduce(
@@ -116,6 +122,8 @@ function buildNeighborhoodGraph(board: Board) : G.Graph<Quarter>
     );
 }
 
+
+// return the neighborhood graph after adding an edge if conditions are check
 function neighborhoodCase(graph: G.Graph<Quarter>, quarter: Quarter, board: Board) : G.Graph<Quarter>
 {
     if (quarter === nil)

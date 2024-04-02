@@ -99,6 +99,18 @@ describe('Graph tests', () => {
 
 	const lv = G.getConnexComponents(G.initGraph<number>());
 	expect(lv.size).toBe(0);
-     });
+    });
+
+    test('getConnexComponents should throw an error when invalid graph provided', () => {
+	let g: G.Graph<any> = G.initGraph<any>();
+	g = G.addVertex(g, 10);
+
+	g = G.addVertex(g, 11);
+        g = g.set('vertices', g.get('vertices').set(0, undefined));
+
+        expect(() => {
+            G.getConnexComponents(g);
+        }).toThrow();
+    });
     
  });

@@ -7,6 +7,15 @@ function initGraph<T>(): Graph<T>
     return Map({ vertices: List<T>(), adj: List<List<number>>() });
 }
 
+function isEmpty<T>( graph: Graph<T>): boolean
+{
+    if (graph.get('vertices').size === 0 && graph.get('adj').size === 0 )
+	return true;
+    
+    return false;
+}
+    
+
 function addVertex<T>(graph: Graph<T>, vertex: T): Graph<T>
 {
     const newVertices = graph.get('vertices').push(vertex);

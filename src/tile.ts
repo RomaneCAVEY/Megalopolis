@@ -25,7 +25,6 @@ function createEmptyTile(): Tile
 
 function createRandomNeighborhoodDict() : TileDict<N.Color>
 {
-	// TO DO : made random genration with Math.random()
 	const firstN : number = Math.floor(Math.random() * 4);
 	let secondN : number = Math.floor(Math.random() * 3);
 	let thirdN : number = Math.floor(Math.random() * 2);
@@ -43,15 +42,15 @@ function createRandomNeighborhoodDict() : TileDict<N.Color>
 
 function createRandomRoadDict(nDict : TileDict<N.Color>) : TileDict<R.Road>
 {
-	const rDict : TileDict<R.Road> = createEmptyRoadDict();
+	let rDict : TileDict<R.Road> = createEmptyRoadDict();
 	if (nDict.get("ne") !== N.Color.Green)
-		rDict.set("ne", R.createRandomRoad());
-	else if (nDict.get("nw") !== N.Color.Green)
-		rDict.set("nw", R.createRandomRoad());
-	else if (nDict.get("se") !== N.Color.Green)
-		rDict.set("se", R.createRandomRoad());
-	else if (nDict.get("sw") !== N.Color.Green)
-		rDict.set("sw", R.createRandomRoad());
+		rDict = rDict.set("ne", R.createRandomRoad());
+	if (nDict.get("nw") !== N.Color.Green)
+		rDict = rDict.set("nw", R.createRandomRoad());
+	if (nDict.get("se") !== N.Color.Green)
+		rDict = rDict.set("se", R.createRandomRoad());
+	if (nDict.get("sw") !== N.Color.Green)
+		rDict = rDict.set("sw", R.createRandomRoad());
 	return rDict;
 }
 
@@ -64,7 +63,15 @@ function createRandomTile() : Tile
 
 function flipTile(tile: Tile): Tile
 {
-    return tile; // TODO: flip the tile
+	const neighborhoods : TileDict<N.Color> = tile.get("neighborhoods");
+	const roads : TileDict<R.Road> = tile.get("roads");
+	const newRoads : TileDict<R.Road> = Map({ne : roads.get("sw"), se : roads.get("nw"), sw : roads.get("ne"), nw : roads.get("se")});
+	const newNeighborhoods : TileDict<N.Color> = Map({ne : neighborhoods.get("sw"), se : neighborhoods.get("nw"), sw : neighborhoods.get("ne"), nw : neighborhoods.get("se")});
+
+	const newTile : Tile = tile.set("roads", newRoads);
+	const newTileEnd : Tile = newTile.set("neighborhoods", newNeighborhoods);
+
+    return newTileEnd;
 }
 
 export {createEmptyTile, createRandomTile, Tile, TileDict};

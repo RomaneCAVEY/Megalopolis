@@ -22,13 +22,16 @@ function getDeck() : Deck
 	{
 		if (n === 0)
 			return deck;
-		return getDeckRec(deck.push(T.createEmptyTile()), n-1);
+		return getDeckRec(deck.push(T.createRandomTile()), n-1);
 	}
 	return getDeckRec(initDeck(), numberOfTile);
 }
 
 
-/* function getTile(deck : Deck) : T.Tile
+function getTile(deck : Deck) : [T.Tile, Deck]
 {
-	;
-} */
+	return [deck.last(), deck.pop()];
+}
+
+
+export {deckIsEmpty, getDeck, getTile};

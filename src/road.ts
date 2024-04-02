@@ -9,14 +9,14 @@ function createEmptyRoad() : Road
 
 function createRandomRoad() : Road
 {
-	const road : Road = createEmptyRoad();
+	let road : Road = createEmptyRoad();
 	const tab = List(road.keys());
 	const firstRoad : number = Math.floor(Math.random() * 4);
 	let secondRoad : number = Math.floor(Math.random() * 3);
 	if (firstRoad === secondRoad)
 		secondRoad = secondRoad + 1;
-	road.set(tab.get(firstRoad, "north"), true);
-	road.set(tab.get(secondRoad, "north"), true);
+	road = road.set(tab.get(firstRoad, "north"), true);
+	road = road.set(tab.get(secondRoad, "north"), true);
 	return road;
 	/* switch(firstRoad) {
 		case 0:

@@ -1,3 +1,4 @@
+
 import {nil} from "./common.js";
 import {Road} from "./road.js";
 import {Color} from "./neighborhood.js";
@@ -14,9 +15,9 @@ function initBoard(): Board
     return List<Quarter>();
 }
 
-function board_is_empty(board : Board) : boolean
+function boardIsEmpty(board : Board) : boolean
 {	
-	return board.isEmpty();
+    return board.isEmpty();
 }
 
 // find a quarter with coordonate
@@ -34,7 +35,7 @@ function addQuarterToBoard(board: Board, quarter: Quarter): Board
 {
     if (quarter === nil)
 	return board;
-    let nb: Board = board;
+    let nb: Board = board; // TODO: pas fonctionnel
     if (findQuarter(board, quarter.get('x'), quarter.get('y')) !== nil) {
 	nb = removeQuarterFromBoard(nb, quarter.get('x'), quarter.get('y'));
     }
@@ -156,4 +157,4 @@ function neighborhoodCase(graph: G.Graph<Quarter>, quarter: Quarter, board: Boar
 
 
 
-export{initBoard,addQuarterToBoard,removeQuarterFromBoard,Board,Quarter,board_is_empty};
+export{initBoard, addQuarterToBoard, removeQuarterFromBoard, Board, Quarter, boardIsEmpty};

@@ -8,7 +8,7 @@ const objectives = O.initializeObjectives();
 objScore   = objectives.reduce((aTempScore, anObjective) => {
       return aTempScore + objectiveScore(anObjective);
 })
-deck       = initializeDeck()
+deck       = getDeck()
 finalBoard = deck.reduce((aBoard, aCard) => {
       aPlace = findPosition(aBoard, aCard, objectives);
       aNewBoard = placeCard(aBoard, aCard, aPlace);

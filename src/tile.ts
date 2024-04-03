@@ -74,4 +74,4 @@ function flipTile(tile: Tile): Tile
     return newTileEnd;
 }
 
-export {createEmptyTile, createRandomTile, Tile, TileDict};
+export {createEmptyTile, createRandomTile, Tile, TileDict,flipTile};

@@ -92,11 +92,16 @@ function connexCompRec<T>(graph: Graph<T>,
 
 function getConnexComponents<T>(graph: Graph<T>): List<List<T>>
 {
+
     const notVisited: List<T> = graph.get('vertices');
     if (notVisited.size === 0)
         return List<List<T>>();
     else
         return connexCompRec<T>(graph, notVisited, 0, List<List<T>>().push(List<T>()), 0).get('classes', List<List<T>>());
 }
+
+
+//TO DO: implémenter function isCycle<T>(graph: Graph<T>): boolen 
+
 
 export {Graph, initGraph, isEmpty, addVertex, addEdge, getVertices, getVertexNeighbors, getConnexComponents};

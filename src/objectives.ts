@@ -16,6 +16,7 @@ function circulation(graph: G.Graph<R.Road>) : number{
 	//calcul nb composante connexe pour le graphe de road
 	//-1 pour composante connexe qui ne sont pas des cycles
 	//+1 pt par cycle
+	//G.getConnexComponents(graph).reduce((acc,e)=> (isCycle(e)) ? acc+1 : acc-1 )
 	return 0;
 }
 
@@ -127,5 +128,7 @@ function Green_city(graph: G.Graph<N.Color>) : number{
 	return 0;
 }
 
+
+//TO DO: function objectiveScore(Objectives) : number 
 
 export{Objectives,circulation,Quarter,Flowers_city,Green_city,initializeObjectives};

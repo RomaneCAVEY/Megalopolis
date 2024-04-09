@@ -1,10 +1,12 @@
+import {nil} from "./common.js"
 import * as B from "./board.js";
 import * as T from "./tile.js";
 import * as R from "./road.js";
 import * as N from "./neighborhood.js";
+import * as D from "./deck.js";
 
 
-function printRoad(r : R.Road) : string
+function strRoad(r : R.Road) : string
 {
 	let f : string = "0", s : string = "0";
 	if (r.get("north")) {
@@ -28,7 +30,7 @@ function printRoad(r : R.Road) : string
 	return f+s;
 }
 
-function printNeighborhood(n : N.Color) : string
+function strNeighborhood(n : N.Color) : string
 {
 	switch (n) {
 		case N.Color.Blue:
@@ -46,10 +48,34 @@ function printNeighborhood(n : N.Color) : string
 
 function printTile(t : T.Tile)
 {
-	console.log(printNeighborhood(t.get("neighborhoods").get("nw")) + printRoad(t.get("roads").get("nw")) + "    " 
-	+ printNeighborhood(t.get("neighborhoods").get("ne")) + printRoad(t.get("roads").get("ne")));
-	console.log(printNeighborhood(t.get("neighborhoods").get("sw")) + printRoad(t.get("roads").get("sw")) + "    " 
-	+ printNeighborhood(t.get("neighborhoods").get("se")) + printRoad(t.get("roads").get("se")) + "\n");
+	console.log(strNeighborhood(t.get("neighborhoods").get("nw")) + strRoad(t.get("roads").get("nw")) + "    " 
+	+ strNeighborhood(t.get("neighborhoods").get("ne")) + strRoad(t.get("roads").get("ne")));
+	console.log(strNeighborhood(t.get("neighborhoods").get("sw")) + strRoad(t.get("roads").get("sw")) + "    " 
+	+ strNeighborhood(t.get("neighborhoods").get("se")) + strRoad(t.get("roads").get("se")) + "\n");
 }
 
-export {printNeighborhood, printRoad, printTile};
+function strXYQuarter(q : B.Quarter) : string
+{
+	return "Coordonate : (" + q?.get("x") + ", " + q?.get("y") + ")";
+}
+
+function printQuarter(q : B.Quarter)
+{
+	console.log(strXYQuarter(q));
+	if (q?.get("color") === nil)
+		throw new Error("Pas defini");
+	console.log(strNeighborhood(q?.get("color")));
+	console.log(strRoad(q.get("road")));
+}
+
+function printBoard(b : B.Board)
+{
+	b.map((e) => printQuarter(e));
+}
+
+function printDeck(d : D.Deck) 
+{
+	d.map((e) => printTile(e));
+}
+
+export {strNeighborhood, strRoad, printTile, printQuarter, printBoard, printDeck};

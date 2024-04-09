@@ -239,7 +239,10 @@ function quarter(graph: G.Graph<N.Color>): number{
 }
 
 
-
+/** Returns the points of the player
+ * @param board: board of the game, graphC: graph of color, graphR: graph of the roads , players_objective: liste of objectives
+ * @return points of the game
+ */
 function objectives_player_gain(graphC: G.Graph<N.Color>,graphR: G.Graph<R.Road>, board: B.Board,players_objective : List<Objectives>){
 	return players_objective.reduce((acc,objective)=>(
 	(objective===0)? 

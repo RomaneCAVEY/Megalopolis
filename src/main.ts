@@ -8,11 +8,11 @@ import * as O from "./objectives";
 
 
 const tile : T.Tile = T.createRandomTile();
-D.printTile(tile);
+Disp.printTile(tile);
 
 // alone is the current and unique player
 
-
+/*
 const board : B.Board = initBoard();
 const objectives : List<O.Objectives> =initObjectives();
 
@@ -24,7 +24,7 @@ const deck : D.Deck = D.initDeck();
 
 // equivalent to game loop
 const finalBoard = D.deck.reduce((aBoard, aCard) => {
-      const aPlace = findPosition(aBoard, aCard, objectives);
+      const aPlace = findPositionToAddTile(aBoard, aCard, objectives);
       const aNewBoard = placeTile(aBoard, aTile, aPlace);
       return aNewBoard;
 }, board);
@@ -33,3 +33,4 @@ const finalScore = objectives.reduce((aTempScore, anObjective) => {
       return aTempScore + computeObjectiveBoardScore(anObjective, finalBoard);
 },0);
 const hasWon = (finalScore >= objScore);
+*/

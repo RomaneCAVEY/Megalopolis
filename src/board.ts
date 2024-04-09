@@ -30,6 +30,7 @@ function findQuarter(board: Board, x: number, y: number): Quarter
         return b.get(0, nil);
 }
 
+// axe y to the top !
 function tileToQuarter(tile: Tile, x: number, y: number): List<Quarter>
 {
     const q1: Quarter = Map({x: x, y: y, road: tile.get('roads').get('nw'), color: tile.get('neighborhoods').get('nw')});
@@ -39,6 +40,7 @@ function tileToQuarter(tile: Tile, x: number, y: number): List<Quarter>
 
     return List([q1, q2, q3, q4]);
 }
+
 
 function placeTile(board: Board, tile: Tile, x: number, y: number): Board
 {
@@ -80,6 +82,33 @@ function findQuarterIndexInGraph(graph: G.Graph<Quarter>, x: number, y: number):
     );
 }
 
+function allPositionToAddTile( board: Board, tile : Tile, objectif: any ): List<number>
+{
+    const maxX = board.reduce((acc, q) => Math.max(acc, q.get('x')), -Infinity) +1;
+    const minX = board.reduce((acc, q) => Math.min(acc, q.get('x')), +Infinity) -2;
+    const maxY = board.reduce((acc, q) => Math.max(acc, q.get('y')), -Infinity) +2;
+    const minY = board.reduce((acc, q) => Math.min(acc, q.get('y')), +Infinity) -1;
+    return List([maxX, minX, maxY, minY]);
+}
+
+function findPositionToAddTile ( aList: List<number>, board: Board ): List<number>
+{
+    const xRandom = Math.floor(Math.random() * (aList.get(0) - aList.get(1)) + aList.get(1));
+    const yRandom = Math.floor(Math.random() * (aList.get(2) - aList.get(3)) + aList.get(3));
+    
+    if ( checkMove(board, xRandom, yRandom) === true)
+	return List([xRandom,yRandom]);
+
+    return findPositionToAddTile( aList, board);
+}
+
+function checkMove( board: Board, x:number, y:number): boolean
+{
+    const quarter = findQuarter( board, x, y);
+    
+
+    return true;
+}
 
 // build road graph from board
 function buildRoadGraph(board: Board) : G.Graph<Quarter>

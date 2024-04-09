@@ -24,7 +24,7 @@ function createRandomRoad() : Road
 		secondRoad = secondRoad + 1;
 	// place part of road
 	road = road.set(tab.get(firstRoad, "north"), true);
-	road = road.set(tab.get(secondRoad, "north"), true);
+	road = road.set(tab.get(secondRoad, "south"), true);
 	return road;
 }
 

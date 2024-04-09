@@ -2,27 +2,32 @@ import * as R from "./road.js";
 import * as N from "./neighborhood.js";
 import {Map, MapOf} from "immutable";
 
+// Immutable dictionary of Road or Neighborhood with their placement on the tile
 type TileDict<T> = MapOf<{nw: T, ne: T, se: T, sw: T}>;
 
+// Immutable dictionary of two tileDict resp. Road and Neighborhood
 type Tile = MapOf<{roads: TileDict<R.Road>, neighborhoods: TileDict<N.Color>}>;
 
+// Create empty roads in all tile
 function createEmptyRoadDict(): TileDict<R.Road>
 {
     return Map({nw: R.createEmptyRoad(), ne: R.createEmptyRoad(), se: R.createEmptyRoad(), sw: R.createEmptyRoad()});
 }
 
+// Create green neighborhood in all tile
 function createEmptyNeighborhoodDict(): TileDict<N.Color>
 {
     return Map({nw: N.getGreenNeighborhood(), ne: N.getGreenNeighborhood(), se: N.getGreenNeighborhood(), sw: N.getGreenNeighborhood()});
 }
 
+// Combine empty RoadDict and empty NeighborhoodDict in a tile
 function createEmptyTile(): Tile
 {
     return Map({roads: createEmptyRoadDict(), neighborhoods: createEmptyNeighborhoodDict()});
 }
 
 
-
+// create real random neighborhoods in all tile
 function createRandomNeighborhoodDict() : TileDict<N.Color>
 {
 	const firstN : number = Math.floor(Math.random() * 4);
@@ -40,6 +45,7 @@ function createRandomNeighborhoodDict() : TileDict<N.Color>
 	return Map({nw: N.createNeighborhood(firstN), ne: N.createNeighborhood(secondN), se: N.createNeighborhood(thirdN), sw: N.createNeighborhood(lastN)});
 }
 
+// create real random roads in all tile
 function createRandomRoadDict(nDict : TileDict<N.Color>) : TileDict<R.Road>
 {
 	let rDict : TileDict<R.Road> = createEmptyRoadDict();
@@ -54,6 +60,7 @@ function createRandomRoadDict(nDict : TileDict<N.Color>) : TileDict<R.Road>
 	return rDict;
 }
 
+// create real random tile
 function createRandomTile() : Tile
 {
 	const nDict : TileDict<N.Color> = createRandomNeighborhoodDict();
@@ -61,6 +68,7 @@ function createRandomTile() : Tile
 	return Map({roads : rDict, neighborhoods : nDict});
 }
 
+// flip a tile by 180°
 function flipTile(tile: Tile): Tile
 {
 	const neighborhoods : TileDict<N.Color> = tile.get("neighborhoods");

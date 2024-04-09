@@ -1,3 +1,4 @@
+// Differents types of neightborhood
 enum Color {
     Green,
     Blue,
@@ -5,6 +6,7 @@ enum Color {
     Grey
 }
 
+// create a green neighborhood
 function getGreenNeighborhood() : Color
 {
     return Color.Green;

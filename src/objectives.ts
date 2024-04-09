@@ -208,7 +208,7 @@ function Green_city(graph: G.Graph<N.Color>) : number{
  * -1pt/road that ends on the outskirts of the city (a map is on the periphery if it is on the edge of the plateau)
  */
 function Off_the_road(board : B.Board) : number{
-	//return board.reduce((acc,e)=>(e.get("road",0);
+	//return board.reduce((acc,e)=>(e.get("road"),0);
 	return 0;
 }
 
@@ -218,9 +218,8 @@ function Off_the_road(board : B.Board) : number{
  * @param board the board of the game
  * @return List<Number>
  * Notice:
- * The order is the same as the enum color in neighborhoods
+ * The order is the same as in the enum color in neighborhoods
  */
-
 function Size_largest_componentof_each_color(graph: G.Graph<N.Color>) : List<number>{
 	return G.getConnexComponents(graph).reduce(((acc,e)=> (e.get(0) ===N.Color.Green && e.size>acc.get(0, 0)) ? acc.set(0,e.size) : (e.get(0) ===N.Color.Blue && e.size>acc.get(1, 0))? acc.set(1,e.size): (e.get(0)===N.Color.Red && e.size>acc.get(2, 0)) ? acc.set(2,e.size) : (e.get(0)===N.Color.Grey && e.size>acc.get(3, 0)) ? acc.set(3,e.size) : acc ), List<number>());
 }

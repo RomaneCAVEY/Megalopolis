@@ -16,10 +16,10 @@ describe('Tile tests', () => {
 
     test('Create a empty neighborhood dictionnary should be green', () => {
         const g = T.createEmptyNeighborhoodDict();
-        expect(g.get('nw') === N.Color.Green).toBe(true);
-	expect(g.get('ne') === N.Color.Green).toBe(true);
-	expect(g.get('se') === N.Color.Green).toBe(true);
-	expect(g.get('sw') === N.Color.Green).toBe(true);
+        expect(g.get('nw') === N.Color.Rainbow).toBe(true);
+	expect(g.get('ne') === N.Color.Rainbow).toBe(true);
+	expect(g.get('se') === N.Color.Rainbow).toBe(true);
+	expect(g.get('sw') === N.Color.Rainbow).toBe(true);
 	expect(g.size === 4).toBe(true);
     });
 

@@ -3,13 +3,14 @@ enum Color {
     Green,
     Blue,
     Red,
-    Grey
+    Grey,
+    Rainbow= -1
 }
 
 // create a green neighborhood
-function getGreenNeighborhood() : Color
+function getRainbowNeighborhood() : Color
 {
-    return Color.Green;
+    return Color.Rainbow;
 }
 
 /* 
@@ -30,4 +31,4 @@ function createNeighborhood(c : number) : Color
 		return Color.Grey;
 }
 
-export {Color, createNeighborhood, getGreenNeighborhood};
+export {Color, createNeighborhood, getRainbowNeighborhood};

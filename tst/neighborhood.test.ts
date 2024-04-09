@@ -4,8 +4,8 @@ import {List} from 'immutable';
 describe('Neighborhood tests', () => {
     
     test('Green neighborhor should be green', () => {
-        const g = N.getGreenNeighborhood();
-        expect(g).toBe(N.Color.Green);
+        const g = N.getRainbowNeighborhood();
+        expect(g).toBe(N.Color.Rainbow);
     });
 
     test('Create green neighborhor should be green', () => {

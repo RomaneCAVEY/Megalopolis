@@ -17,7 +17,7 @@ function createEmptyRoadDict(): TileDict<R.Road>
 // Create green neighborhood in all tile
 function createEmptyNeighborhoodDict(): TileDict<N.Color>
 {
-    return Map({nw: N.getGreenNeighborhood(), ne: N.getGreenNeighborhood(), se: N.getGreenNeighborhood(), sw: N.getGreenNeighborhood()});
+    return Map({nw: N.getRainbowNeighborhood(), ne: N.getRainbowNeighborhood(), se: N.getRainbowNeighborhood(), sw: N.getRainbowNeighborhood()});
 }
 
 // Combine empty RoadDict and empty NeighborhoodDict in a tile

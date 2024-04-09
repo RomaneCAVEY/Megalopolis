@@ -196,7 +196,7 @@ function Flowers_city( board : B.Board ) : number
  * -3pt per industrial district in the city
  */
 function Green_city(graph: G.Graph<N.Color>) : number{
-	return G.getConnexComponents(graph).reduce(((acc,e)=> (e[0].color===N.Color.Green) ? acc+e.size : (e[0].color===N.Color.Grey) ? acc+(-3)*e.size: acc), 0);
+	return G.getConnexComponents(graph).reduce(((acc,e)=> (e.get(0) ===N.Color.Green) ? acc+e.size : (e.get(0) ===N.Color.Grey) ? acc+(-3)*e.size: acc), 0);
 }
 
 
@@ -222,7 +222,7 @@ function Off_the_road(board : B.Board) : number{
  */
 
 function Size_largest_componentof_each_color(graph: G.Graph<N.Color>) : List<number>{
-	return G.getConnexComponents(graph).reduce(((acc,e)=> (e[0].color===N.Color.Green && e.size>acc[0]) ? acc.set(0,e.size) : (e[0].color===N.Color.Blue && e.size>acc[1])? acc.set(1,e.size): (e[0].color===N.Color.Red && e.size>acc[2]) ? acc.set(2,e.size) : (e[0].color===N.Color.Grey && e.size>acc[3]) ? acc.set(3,e.size) : acc ), List<number>());
+	return G.getConnexComponents(graph).reduce(((acc,e)=> (e.get(0) ===N.Color.Green && e.size>acc.get(0, 0)) ? acc.set(0,e.size) : (e.get(0) ===N.Color.Blue && e.size>acc.get(1, 0))? acc.set(1,e.size): (e.get(0)===N.Color.Red && e.size>acc.get(2, 0)) ? acc.set(2,e.size) : (e.get(0)===N.Color.Grey && e.size>acc.get(3, 0)) ? acc.set(3,e.size) : acc ), List<number>());
 }
 
 

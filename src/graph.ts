@@ -10,11 +10,10 @@ function initGraph<T>(): Graph<T>
 function isEmpty<T>( graph: Graph<T>): boolean
 {
     if (graph.get('vertices').size === 0 && graph.get('adj').size === 0 )
-	return true;
+        return true;
     
     return false;
 }
-    
 
 function addVertex<T>(graph: Graph<T>, vertex: T): Graph<T>
 {
@@ -61,7 +60,6 @@ function connexCompRec<T>(graph: Graph<T>,
     const newNotVisited = notVisited.delete(notVisited.indexOf(v));
 
     // Add it to its class
-
     const newClasses = classes.set(currentClass, classes.get(currentClass, List<T>()).push(v));
 
     // Get the vertex neighbors and only keep the ones that were not yet visited.
@@ -92,7 +90,6 @@ function connexCompRec<T>(graph: Graph<T>,
 
 function getConnexComponents<T>(graph: Graph<T>): List<List<T>>
 {
-
     const notVisited: List<T> = graph.get('vertices');
     if (notVisited.size === 0)
         return List<List<T>>();
@@ -100,8 +97,86 @@ function getConnexComponents<T>(graph: Graph<T>): List<List<T>>
         return connexCompRec<T>(graph, notVisited, 0, List<List<T>>().push(List<T>()), 0).get('classes', List<List<T>>());
 }
 
+function getComponentEdges<T>(graph: Graph<T>, component: List<T>): List<List<number>>
+{
+    // Get all vertices
+    const vertices: List<T> = graph.get('vertices');
 
-//TO DO: implémenter function isCycle<T>(graph: Graph<T>): boolen 
+    // Get all edges
+    return component.reduce(
+        (acc, v1) => {
+            // For each vertex v1 in component, get all its neighbors
+            const neigh: List<T> = getVertexNeighbors(graph, vertices.indexOf(v1));
+            return neigh.reduce(
+                (acc2, v2) => {
+                    // For each neighbor v2 of v1, make an edge linking v1 and v2 (v1 and v2 indices are sorted in ascending order since the graph is not directed)
+                    const edge: List<number> = List([vertices.indexOf(v1), vertices.indexOf(v2)]).sort();
+                    
+                    // If edge is already known, it should not be registered a second time
+                    if (acc2.includes(edge))
+                        return acc2;
+                    else
+                        return acc2.push(edge);
+                }, acc
+            );
+        },
+        List<List<number>>([])
+    );
+}
+
+/** Check if a connex component forms a cycle.
+ * @param graph A graph
+ * @param component A list of connected vertices
+ * @return true if the components forms a cycle, false if not
+ *
+ * Notice : This function only checks that the component contains a cycle.
+ */
+function isCycle<T>(graph: Graph<T>, component: List<T>): boolean
+{
+    // TODO: this function is not programed in a functionnal style
+    if (component.size < 3)
+        return false;
+    const vertices: List<T> = graph.get('vertices');
+    const start: number = vertices.indexOf(component.get(0));
+    let toVisit: List<number> = component.map((val) => vertices.indexOf(val));
+    let visited: List<boolean> = vertices.map(() => false);
+    let parents: List<number> = vertices.map(() => -1);
+
+    parents = parents.set(start, start);
+    while (toVisit.size > 0) {
+        const current = toVisit.first();
+        toVisit = toVisit.shift();
+        visited = visited.set(current, true);
+        
+        const r: boolean = graph.get('adj').get(current).some((val, key) => {
+            if (val === 1 && visited.get(key) === false) {
+                toVisit = toVisit.push(key);
+                visited = visited.set(key, true);
+                parents = parents.set(key, current);
+            } else if (val === 1 && visited.get(key) === true && parents.get(current) !== key) {
+                return true;
+            }
+            return false;
+        });
+
+        if (r)
+            return true;
+    }
+    return false;
+}
+
+/** Returns all cycles that are in the graph.
+ * @param graph A graph
+ * @return A list of all cycles (a cycle is a list of vertices)
+ *
+ * Notice: This function returns all vertices that are connected to a cycle. Some vertices may be outside the cycle itself.
+ */
+function getCycles<T>(graph: Graph<T>): List<List<T>>
+{
+    const classes: List<List<T>> = getConnexComponents<T>(graph);
+
+    return classes.filter((val) => isCycle<T>(graph, val));
+}
 
 
-export {Graph, initGraph, isEmpty, addVertex, addEdge, getVertices, getVertexNeighbors, getConnexComponents};
+export {Graph, initGraph, isEmpty, addVertex, addEdge, getVertices, getVertexNeighbors, getConnexComponents, getCycles};

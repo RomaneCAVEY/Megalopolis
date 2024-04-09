@@ -137,23 +137,23 @@ function isCycle<T>(graph: Graph<T>, component: List<T>): boolean
     if (component.size < 3)
         return false;
     const vertices: List<T> = graph.get('vertices');
-    const start: number = vertices.indexOf(component.get(0));
+    const start: number = vertices.indexOf(component.first());
     let toVisit: List<number> = component.map((val) => vertices.indexOf(val));
     let visited: List<boolean> = vertices.map(() => false);
     let parents: List<number> = vertices.map(() => -1);
 
     parents = parents.set(start, start);
     while (toVisit.size > 0) {
-        const current = toVisit.first();
+        const current: number = toVisit.first();
         toVisit = toVisit.shift();
         visited = visited.set(current, true);
         
-        const r: boolean = graph.get('adj').get(current).some((val, key) => {
-            if (val === 1 && visited.get(key) === false) {
-                toVisit = toVisit.push(key);
-                visited = visited.set(key, true);
-                parents = parents.set(key, current);
-            } else if (val === 1 && visited.get(key) === true && parents.get(current) !== key) {
+        const r: boolean = graph.get('adj', List()).get(current, List()).some((val: number) => {
+            if (visited.get(val) === false) {
+                toVisit = toVisit.push(val);
+                visited = visited.set(val, true);
+                parents = parents.set(val, current);
+            } else if (visited.get(val) === true && parents.get(current) !== val) {
                 return true;
             }
             return false;
@@ -174,7 +174,6 @@ function isCycle<T>(graph: Graph<T>, component: List<T>): boolean
 function getCycles<T>(graph: Graph<T>): List<List<T>>
 {
     const classes: List<List<T>> = getConnexComponents<T>(graph);
-
     return classes.filter((val) => isCycle<T>(graph, val));
 }
 

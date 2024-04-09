@@ -208,7 +208,7 @@ function Green_city(graph: G.Graph<N.Color>) : number{
  * -1pt/road that ends on the outskirts of the city (a map is on the periphery if it is on the edge of the plateau)
  */
 function Off_the_road(board : B.Board) : number{
-	return board.reduce((acc,e)=>(e.get("road",0);
+	//return board.reduce((acc,e)=>(e.get("road",0);
 	return 0;
 }
 

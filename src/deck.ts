@@ -15,7 +15,13 @@ function deckIsEmpty(deck : Deck) : boolean
 }
 
 
-function getDeck() : Deck
+function deckSize(deck : Deck) : number
+{
+	return deck.size;
+}
+
+
+function createDeck() : Deck
 {
 	const numberOfTile : number = 15;
 	function getDeckRec(deck : Deck, n : number) : Deck
@@ -30,8 +36,10 @@ function getDeck() : Deck
 
 function getTile(deck : Deck) : [T.Tile, Deck]
 {
+	if (deckIsEmpty(deck))
+		throw new Error("You try to get a tile in an empty deck");
 	return [deck.last(), deck.pop()];
 }
 
 
-export {deckIsEmpty, getDeck, getTile};
+export {deckIsEmpty, createDeck, getTile, initDeck, deckSize, Deck};

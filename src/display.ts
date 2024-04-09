@@ -1,4 +1,4 @@
-import {nil} from "./common.js"
+import {nil} from "./common.js";
 import * as B from "./board.js";
 import * as T from "./tile.js";
 import * as R from "./road.js";

@@ -84,17 +84,17 @@ function findQuarterIndexInGraph(graph: G.Graph<Quarter>, x: number, y: number):
 
 function allPositionToAddTile( board: Board, tile : Tile, objectif: any ): List<number>
 {
-    const maxX = board.reduce((acc, q) => Math.max(acc, q.get('x')), -Infinity) +1;
-    const minX = board.reduce((acc, q) => Math.min(acc, q.get('x')), +Infinity) -2;
-    const maxY = board.reduce((acc, q) => Math.max(acc, q.get('y')), -Infinity) +2;
-    const minY = board.reduce((acc, q) => Math.min(acc, q.get('y')), +Infinity) -1;
-    return List([maxX, minX, maxY, minY]);
+    const maxX = board.reduce((acc, q) => (q === undefined) ? acc : Math.max(acc, q.get('x')), -Infinity) +1;
+    const minX = board.reduce((acc, q) => (q === undefined) ? acc : Math.min(acc, q.get('x')), +Infinity) -2;
+    const maxY = board.reduce((acc, q) => (q === undefined) ? acc : Math.max(acc, q.get('y')), -Infinity) +2;
+    const minY = board.reduce((acc, q) => (q === undefined) ? acc : Math.min(acc, q.get('y')), +Infinity) -1;
+    return List<number>([maxX, minX, maxY, minY]);
 }
 
 function findPositionToAddTile ( aList: List<number>, board: Board ): List<number>
 {
-    const xRandom = Math.floor(Math.random() * (aList.get(0) - aList.get(1)) + aList.get(1));
-    const yRandom = Math.floor(Math.random() * (aList.get(2) - aList.get(3)) + aList.get(3));
+    const xRandom = Math.floor(Math.random() * (aList.get(0, 0) - aList.get(1, 0)) + aList.get(1, 0));
+    const yRandom = Math.floor(Math.random() * (aList.get(2, 0) - aList.get(3, 0)) + aList.get(3, 0));
     
     if ( checkMove(board, xRandom, yRandom) === true)
 	return List([xRandom,yRandom]);

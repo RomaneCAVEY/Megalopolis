@@ -1,4 +1,7 @@
 import {MapOf, Map, List} from "immutable";
+import {randomInRange} from "./random.js";
+
+const seed : number = 150;
 
 // Immutable dictionary for a quart of tile
 type Road = MapOf<{ north: boolean, west: boolean, south: boolean, east: boolean}>;
@@ -18,8 +21,8 @@ function createRandomRoad() : Road
 	// get keys to set road
 	const tab = List(road.keys());
 	// take 2 random number between 0 and 3 to place part of road
-	const firstRoad : number = Math.floor(Math.random() * 4);
-	let secondRoad : number = Math.floor(Math.random() * 3);
+	const firstRoad : number = randomInRange(seed, 0, 4);
+	let secondRoad : number = randomInRange(seed, 0, 3);
 	if (firstRoad === secondRoad)
 		secondRoad = secondRoad + 1;
 	// place part of road

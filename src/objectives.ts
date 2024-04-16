@@ -40,7 +40,6 @@ function initializeObjectives(): List<Objectives> {
 		if (i===5){
 			return list;
 		}
-		console.log("size is"+ list.size);
 		const a=randomInRange(seed,0,5);
 		if(!list.includes(a))
 			return(recinitializeObjectives(i+1,list.push(a),0));
@@ -48,7 +47,6 @@ function initializeObjectives(): List<Objectives> {
 			return(recinitializeObjectives(i,list,seed+1));
 	}
 
-	console.log(recinitializeObjectives(0,createEmptyObjectives(),0));
 	return(recinitializeObjectives(0,createEmptyObjectives(),0));
 }
 

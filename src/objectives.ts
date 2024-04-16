@@ -8,7 +8,7 @@ import {List, MapOf} from 'immutable';
 
 
 enum Objectives {
-    Off_the_road,
+    Foreman,
     Quarter,
     Flowers_city,
     Green_city,
@@ -18,7 +18,7 @@ enum Objectives {
 
 
 //Points by objective in the order of the enum Objectives (on the top)
-const Objectives_points = [1,0,2,3,2,14];
+const Objectives_points = [6,0,2,3,2,14];
 
 /** Returns an empty list of Objectives
  * @param 
@@ -200,25 +200,17 @@ function Green_city(graph: G.Graph<N.Color>) : number{
 }
 
 
-/** Returns the points of the rule "Off_the_road"
- * @param board the board of the game
- * @return points of the rule Off_the_road
- * Rules:
- * 	1pt/road that doesn't end on the outskirts of the city 
- * -1pt/road that ends on the outskirts of the city (a map is on the periphery if it is on the edge of the plateau)
- */
-function Off_the_road(board : B.Board) : number{
-//FONCTIONS A FINIR
-/* return board.reduce((acc,e)=>
-	(e!=undefined && e.get("road").get("north")===true )? 
-	e.filter((e)=> e.x===).filter(e.y===).size!=0.s: 
-	(e!=undefined && e.get("road").get("south")===true )? acc : 
-	(e!=undefined && e.get("road").get("west")===true )? acc : 
-	(e!=undefined && e.get("road").get("east")===true )? acc : 
 
-acc
-,0); */
-	return 0;
+/** Returns the points of the rule "foreman"
+ * @param graphC, the graph of color
+ * @return points of the rule foreman
+ * Rules:
+ * Subtract the number of neighbourhoods from the largest borough
+*  industrial to that of the largest arrondissement
+*  residential. Score that number of points.
+ */
+function foreman(graphC: G.Graph<N.Color>) : number{
+	return (G.getConnexComponents(graphC).reduce(((acc,e)=> e.get(0)===N.Color.Grey && e.size>acc ? e.size: acc),0) - G.getConnexComponents(graphC).reduce(((acc,e)=> e.get(0)===N.Color.Blue && e.size>acc ? e.size: acc),0));
 }
 
 
@@ -254,7 +246,7 @@ function quarter(graph: G.Graph<N.Color>): number{
 function objectives_player_gain(graphC: G.Graph<N.Color>,graphR: G.Graph<R.Road>, board: B.Board,players_objective : List<Objectives>){
 	return players_objective.reduce((acc,objective)=>(
 	(objective===0)? 
-		acc+Off_the_road(board):(objective===1)? 
+		acc+foreman(graphC):(objective===1)? 
 			acc+quarter(graphC): (objective===2)? 
 				acc+Flowers_city(board):(objective===3)?
 					acc+Green_city(graphC):(objective===4)?

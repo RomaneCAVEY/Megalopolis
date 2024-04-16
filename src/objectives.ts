@@ -33,38 +33,37 @@ function createEmptyObjectives(): List<Objectives>{
  * @param 
  * @return a list of  5 Objectives
  */
-function initializeObjectives(): List<Objectives>{
-        const Object:List<Objectives> =createEmptyObjectives();
+function initializeObjectives(): List<Objectives> {
+    let obj: List<Objectives> = createEmptyObjectives(); // TODO: not in a functionnal style
 
-        const rand1 : number = Math.floor(Math.random() * 5);
-        Object.push(rand1);
+    const rand1: number = Math.floor(Math.random() * 5);
+    obj = obj.push(rand1);
 
-        let rand2 : number = Math.floor(Math.random() * 5);
-        if(rand1===rand2){
-                rand2=(rand2+1)%5;
-        }
-        Object.push(rand2);
+    let rand2: number = Math.floor(Math.random() * 5);
+    if (rand1 === rand2){
+        rand2 = (rand2 + 1) % 5;
+    }
+    obj = obj.push(rand2);
 
-        let rand3 : number = Math.floor(Math.random() * 5);
-        if(rand1===rand3 || rand2===rand3){
-                rand3=(rand3+1)%5;
-        }
-        Object.push(rand3);
+    let rand3: number = Math.floor(Math.random() * 5);
+    if (rand1 === rand3 || rand2 === rand3) {
+        rand3 = (rand3 + 1) % 5;
+    }
+    obj = obj.push(rand3);
 
-        let rand4 : number = Math.floor(Math.random() * 5);
-        if(rand1===rand4 || rand2===rand4 || rand3===rand4){
-                rand4=(rand4+1)%5;
-        }
-        Object.push(rand4);
+    let rand4: number = Math.floor(Math.random() * 5);
+    if (rand1 === rand4 || rand2 === rand4 || rand3 === rand4) {
+        rand4 = (rand4 + 1) % 5;
+    }
+    obj = obj.push(rand4);
 
-        let rand5 : number = Math.floor(Math.random() * 5);
-        if(rand1===rand5 || rand2===rand5 || rand3===rand5 || rand4===rand5){
-                rand5=(rand5+1)%5;
-        }
-        Object.push(rand5);
-        
-        return Object;
-        
+    let rand5: number = Math.floor(Math.random() * 5);
+    if (rand1 === rand5 || rand2 === rand5 || rand3 === rand5 || rand4 === rand5) {
+        rand5 = (rand5 + 1) % 5;
+    }
+    obj = obj.push(rand5);
+    
+    return obj;
 }
 
 /** Returns an empty list of Objectives

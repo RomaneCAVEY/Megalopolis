@@ -222,5 +222,5 @@ export {
     buildNeighborhoodGraph,
     buildRoadGraph,
     tileToQuarter,
-    findQuater
+    findQuarter
 };

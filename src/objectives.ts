@@ -4,7 +4,7 @@ import * as N from "./neighborhood.js";
 import * as R from "./road.js";
 import * as C from "./common.js";
 import {List, MapOf} from 'immutable';
-
+import{randomInRange} from './random.js';
 
 
 enum Objectives {
@@ -33,6 +33,29 @@ function createEmptyObjectives(): List<Objectives>{
  * @param 
  * @return a list of  5 Objectives
  */
+function initializeObjectives(): List<Objectives> {
+
+	function recinitializeObjectives(i:number, list: List<Objectives>, seed:number) : List<Objectives> {
+		
+		if (i===5){
+			return list;
+		}
+		console.log("size is"+ list.size);
+		const a=randomInRange(seed,0,5);
+		if(!list.includes(a))
+			return(recinitializeObjectives(i+1,list.push(a),0));
+		else
+			return(recinitializeObjectives(i,list,seed+1));
+	}
+
+	console.log(recinitializeObjectives(0,createEmptyObjectives(),0));
+	return(recinitializeObjectives(0,createEmptyObjectives(),0));
+}
+
+
+
+/*  OLD VERSION
+
 function initializeObjectives(): List<Objectives> {
     let obj: List<Objectives> = createEmptyObjectives(); // TODO: not in a functionnal style
 
@@ -64,7 +87,7 @@ function initializeObjectives(): List<Objectives> {
     obj = obj.push(rand5);
     
     return obj;
-}
+} */
 
 /** Returns an empty list of Objectives
  * @param index the index of the objectives in the Array Objectives

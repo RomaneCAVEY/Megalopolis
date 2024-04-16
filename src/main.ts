@@ -10,7 +10,7 @@ import {List, Map, MapOf} from "immutable";
 
 
 const tile : T.Tile = T.createRandomTile();
-Disp.printTile(tile);
+Disp.displayTile(tile);
 
 const board : B.Board = B.initBoard();
 const colorGraph: G.Graph<B.Quarter> = G.initGraph();

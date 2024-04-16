@@ -46,7 +46,7 @@ function strNeighborhood(n : N.Color) : string
 	}
 }
 
-function printTile(t : T.Tile)
+function displayTile(t : T.Tile)
 {
 	console.log(strNeighborhood(t.get("neighborhoods").get("nw")) + strRoad(t.get("roads").get("nw")) + "    " 
 	+ strNeighborhood(t.get("neighborhoods").get("ne")) + strRoad(t.get("roads").get("ne")));
@@ -59,7 +59,7 @@ function strXYQuarter(q : B.Quarter) : string
 	return "Coordonate : (" + q?.get("x") + ", " + q?.get("y") + ")";
 }
 
-function printQuarter(q : B.Quarter)
+function displayQuarter(q : B.Quarter)
 {
 	console.log(strXYQuarter(q));
 	if (q?.get("color") === nil)
@@ -68,14 +68,14 @@ function printQuarter(q : B.Quarter)
 	console.log(strRoad(q.get("road")));
 }
 
-function printBoard(b : B.Board)
+function displayBoard(b : B.Board)
 {
-	b.map((e) => printQuarter(e));
+	b.map((e) => displayQuarter(e));
 }
 
-function printDeck(d : D.Deck) 
+function displayDeck(d : D.Deck) 
 {
-	d.map((e) => printTile(e));
+	d.map((e) => displayTile(e));
 }
 
-export {strNeighborhood, strRoad, printTile, printQuarter, printBoard, printDeck};
+export {strNeighborhood, strRoad, displayTile, displayQuarter, displayBoard, displayDeck};

@@ -311,7 +311,6 @@ function quarter(graph: G.Graph<B.Quarter>): number {
     //calcul composante connexe pour les couleurs , garde la plus grande pour chacun des 4 types
     return Size_largest_componentof_each_color(graph).reduce(
         (acc, e) =>  {
-            console.log("e: " + e);
             return acc + e;
         }, 0);
 }

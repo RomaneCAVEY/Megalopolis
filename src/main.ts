@@ -19,15 +19,20 @@ const objectives : List<O.Objectives> = O.initializeObjectives();
 
 console.log("objectives: " + JSON.stringify(objectives));
 
-const objScore   = objectives.reduce((aTempScore, anObjective) => {
+const objScore = objectives.reduce((aTempScore, anObjective) => {
       return aTempScore + O.Point_of_objective(anObjective);
-},0);
+}, 0);
 
-const deck : D.Deck = D.initDeck();
+console.log("objScore: " + objScore);
+
+const deck : D.Deck = D.createDeck();
+
+console.log("deckSize: " + deck.size);
 
 // equivalent to game loop
 const finalValues: MapOf<{board: B.Board, cGraph: G.Graph<B.Quarter>, rGraph: G.Graph<B.Quarter>}> = deck.reduce((aTriplet, aCard) => {
     const aPlace = B.findPositionToAddTile(B.allPositionToAddTile(aTriplet.get('board')), aTriplet.get('board'), aCard, objectives);
+    console.log("placing tile at pos: (" + aPlace.get(0) + ", " + aPlace.get(1) + ")");
     const aNewBoard = B.placeTile(aTriplet.get('board'), aCard, aPlace.get(0, 0), aPlace.get(1, 0));
     const aNewCGraph = B.buildNeighborhoodGraph(aNewBoard);
     const aNewRGraph = B.buildRoadGraph(aNewBoard);

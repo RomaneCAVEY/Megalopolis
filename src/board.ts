@@ -208,6 +208,7 @@ function neighborhoodCase(graph: G.Graph<Quarter>, quarter: Quarter, board: Boar
 
 
 
+
 export {
     initBoard,
     addQuarterToBoard,
@@ -219,5 +220,7 @@ export {
     allPositionToAddTile,
     findPositionToAddTile,
     buildNeighborhoodGraph,
-    buildRoadGraph
+    buildRoadGraph,
+    tileToQuarter,
+    findQuater
 };

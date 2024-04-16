@@ -269,11 +269,11 @@ function Size_largest_componentof_each_color(graph: G.Graph<B.Quarter>) : List<n
             } else if (q.get('color') === N.Color.Red && e.size > acc.get(2, 0)) {
                 return acc.set(2, e.size);
             } else if (q.get('color') === N.Color.Grey && e.size > acc.get(3, 0)) {
-                return acc.set(3,e.size);
+                return acc.set(3, e.size);
             } else {
                 return acc;
             }
-        }, List<number>());
+        }, List<number>([0, 0, 0, 0]));
 }
 
 
@@ -284,9 +284,13 @@ function Size_largest_componentof_each_color(graph: G.Graph<B.Quarter>) : List<n
  * Rules:
  * 1pt/district for the largest boroughs in each of the 4 types (a borough is a related component of neighbourhoods)
  */
-function quarter(graph: G.Graph<B.Quarter>): number{
-        //calcul composante connexe pour les couleurs , garde la plus grande pour chacun des 4 types
-        return Size_largest_componentof_each_color(graph).reduce((acc,e)=> acc+e, 0);
+function quarter(graph: G.Graph<B.Quarter>): number {
+    //calcul composante connexe pour les couleurs , garde la plus grande pour chacun des 4 types
+    return Size_largest_componentof_each_color(graph).reduce(
+	(acc, e) =>  {
+	    console.log("e: " + e);
+	    return acc + e;
+	}, 0);
 }
 
 
@@ -294,17 +298,38 @@ function quarter(graph: G.Graph<B.Quarter>): number{
  * @param board: board of the game, graphC: graph of color, graphR: graph of the roads , players_objective: liste of objectives
  * @return points of the game
  */
-function objectives_player_gain(graphC: G.Graph<B.Quarter>,graphR: G.Graph<B.Quarter>, board: B.Board,players_objective : List<Objectives>){
-        return players_objective.reduce((acc,objective)=>(
-        (objective===0)? 
-                acc+foreman(graphC):(objective===1)? 
-                        acc+quarter(graphC): (objective===2)? 
-                                acc+Flowers_city(board):(objective===3)?
-                                        acc+Green_city(graphC):(objective===4)?
-                                                acc+reduce_circulation(graphR):(objective===5)?
-                                                        acc+ring_road(graphR):
-                                acc),0);
+function objectives_player_gain(graphC: G.Graph<B.Quarter>, graphR: G.Graph<B.Quarter>, board: B.Board, playerObjectives: List<Objectives>) {
+    console.log("Player score:");
+    return playerObjectives.reduce((acc, objective) => {
+	switch (objective) {
+	    case 0:
+		console.log(" - foreman: " + foreman(graphC));
+		return acc + foreman(graphC);
 
+	    case 1:
+		console.log(" - quarter: " + quarter(graphC));
+		return acc + quarter(graphC);
+
+	    case 2:
+		console.log(" - flowers city: " + Flowers_city(board));
+		return acc + Flowers_city(board);
+
+	    case 3:
+		console.log(" - green city: " + Green_city(graphC));
+		return acc + Green_city(graphC);
+
+	    case 4:
+		console.log(" - reduce circulation: " + reduce_circulation(graphR));
+		return acc + reduce_circulation(graphR);
+
+	    case 5:
+		console.log(" - ring road: " + ring_road(graphR));
+		return acc + ring_road(graphR);
+
+	    default:
+		return acc;
+	}
+    },0);
 }
 
 

@@ -287,10 +287,10 @@ function Size_largest_componentof_each_color(graph: G.Graph<B.Quarter>) : List<n
 function quarter(graph: G.Graph<B.Quarter>): number {
     //calcul composante connexe pour les couleurs , garde la plus grande pour chacun des 4 types
     return Size_largest_componentof_each_color(graph).reduce(
-	(acc, e) =>  {
-	    console.log("e: " + e);
-	    return acc + e;
-	}, 0);
+        (acc, e) =>  {
+            console.log("e: " + e);
+            return acc + e;
+        }, 0);
 }
 
 
@@ -301,34 +301,34 @@ function quarter(graph: G.Graph<B.Quarter>): number {
 function objectives_player_gain(graphC: G.Graph<B.Quarter>, graphR: G.Graph<B.Quarter>, board: B.Board, playerObjectives: List<Objectives>) {
     console.log("Player score:");
     return playerObjectives.reduce((acc, objective) => {
-	switch (objective) {
-	    case 0:
-		console.log(" - foreman: " + foreman(graphC));
-		return acc + foreman(graphC);
+        switch (objective) {
+            case 0:
+                console.log(" - foreman: " + foreman(graphC));
+                return acc + foreman(graphC);
 
-	    case 1:
-		console.log(" - quarter: " + quarter(graphC));
-		return acc + quarter(graphC);
+            case 1:
+                console.log(" - quarter: " + quarter(graphC));
+                return acc + quarter(graphC);
 
-	    case 2:
-		console.log(" - flowers city: " + Flowers_city(board));
-		return acc + Flowers_city(board);
+            case 2:
+                console.log(" - flowers city: " + Flowers_city(board));
+                return acc + Flowers_city(board);
 
-	    case 3:
-		console.log(" - green city: " + Green_city(graphC));
-		return acc + Green_city(graphC);
+            case 3:
+                console.log(" - green city: " + Green_city(graphC));
+                return acc + Green_city(graphC);
 
-	    case 4:
-		console.log(" - reduce circulation: " + reduce_circulation(graphR));
-		return acc + reduce_circulation(graphR);
+            case 4:
+                console.log(" - reduce circulation: " + reduce_circulation(graphR));
+                return acc + reduce_circulation(graphR);
 
-	    case 5:
-		console.log(" - ring road: " + ring_road(graphR));
-		return acc + ring_road(graphR);
+            case 5:
+                console.log(" - ring road: " + ring_road(graphR));
+                return acc + ring_road(graphR);
 
-	    default:
-		return acc;
-	}
+            default:
+                return acc;
+        }
     },0);
 }
 

@@ -3,6 +3,7 @@ import {Road} from "./road.js";
 import {Color} from "./neighborhood.js";
 import {Tile} from "./tile.js";
 import * as G from "./graph.js";
+import * as O from './objectives.js';
 
 import {List, Map, MapOf} from 'immutable';
 
@@ -82,7 +83,7 @@ function findQuarterIndexInGraph(graph: G.Graph<Quarter>, x: number, y: number):
     );
 }
 
-function allPositionToAddTile( board: Board, tile : Tile, objectif: any ): List<number>
+function allPositionToAddTile(board: Board): List<number>
 {
     const maxX = board.reduce((acc, q) => (q === undefined) ? acc : Math.max(acc, q.get('x')), -Infinity) +1;
     const minX = board.reduce((acc, q) => (q === undefined) ? acc : Math.min(acc, q.get('x')), +Infinity) -2;
@@ -91,7 +92,7 @@ function allPositionToAddTile( board: Board, tile : Tile, objectif: any ): List<
     return List<number>([maxX, minX, maxY, minY]);
 }
 
-function findPositionToAddTile ( aList: List<number>, board: Board ): List<number>
+function findPositionToAddTile (aList: List<number>, board: Board, tile: Tile, objectives: List<O.Objectives>): List<number>
 {
     const xRandom = Math.floor(Math.random() * (aList.get(0, 0) - aList.get(1, 0)) + aList.get(1, 0));
     const yRandom = Math.floor(Math.random() * (aList.get(2, 0) - aList.get(3, 0)) + aList.get(3, 0));
@@ -99,7 +100,7 @@ function findPositionToAddTile ( aList: List<number>, board: Board ): List<numbe
     if ( checkMove(board, xRandom, yRandom) === true)
 	return List([xRandom,yRandom]);
 
-    return findPositionToAddTile( aList, board);
+    return findPositionToAddTile(aList, board, tile, objectives);
 }
 
 function checkMove( board: Board, x:number, y:number): boolean
@@ -205,4 +206,16 @@ function neighborhoodCase(graph: G.Graph<Quarter>, quarter: Quarter, board: Boar
 
 
 
-export{initBoard, addQuarterToBoard, removeQuarterFromBoard, Board, Quarter, boardIsEmpty, placeTile};
+export {
+    initBoard,
+    addQuarterToBoard,
+    removeQuarterFromBoard,
+    Board,
+    Quarter,
+    boardIsEmpty,
+    placeTile,
+    allPositionToAddTile,
+    findPositionToAddTile,
+    buildNeighborhoodGraph,
+    buildRoadGraph
+};

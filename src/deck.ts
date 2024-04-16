@@ -1,4 +1,4 @@
-import * as T from "./tile";
+import * as T from "./tile.js";
 import {List} from 'immutable';
 
 type Deck = List<T.Tile>;

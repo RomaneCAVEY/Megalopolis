@@ -94,6 +94,8 @@ function allPositionToAddTile(board: Board): List<number>
 
 function findPositionToAddTile (aList: List<number>, board: Board, tile: Tile, objectives: List<O.Objectives>): List<number>
 {
+    if (aList.get(0, 0) === -Infinity)
+	return List([0, 0]);
     const xRandom = Math.floor(Math.random() * (aList.get(0, 0) - aList.get(1, 0)) + aList.get(1, 0));
     const yRandom = Math.floor(Math.random() * (aList.get(2, 0) - aList.get(3, 0)) + aList.get(3, 0));
     

@@ -1,7 +1,7 @@
 import {MapOf, Map, List} from "immutable";
 import {randomInRange} from "./random.js";
 
-const seed : number = 150;
+// const seed : number = 150;
 
 // Immutable dictionary for a quart of tile
 type Road = MapOf<{ north: boolean, west: boolean, south: boolean, east: boolean}>;
@@ -14,7 +14,7 @@ function createEmptyRoad() : Road
 }
 
 // Create a random road with 1 entry and 1 exit
-function createRandomRoad() : Road
+function createRandomRoad(seed : number) : Road
 {
 	// create an empty road
 	let road : Road = createEmptyRoad();

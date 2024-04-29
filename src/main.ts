@@ -8,8 +8,9 @@ import * as O from "./objectives.js";
 import * as G from "./graph.js";
 import {List, Map, MapOf} from "immutable";
 
+const seed : number = 10;
 
-const tile : T.Tile = T.createRandomTile();
+const tile : T.Tile = T.createRandomTile(seed);
 Disp.displayTile(tile);
 
 const board : B.Board = B.initBoard();
@@ -25,7 +26,7 @@ const objScore = objectives.reduce((aTempScore, anObjective) => {
 
 console.log("objScore: " + objScore);
 
-const deck : D.Deck = D.createDeck();
+const deck : D.Deck = D.createDeckWithSeed(seed*2);
 
 console.log("deckSize: " + deck.size);
 
@@ -42,6 +43,8 @@ const finalValues: MapOf<{board: B.Board, cGraph: G.Graph<B.Quarter>, rGraph: G.
 const finalBoard = finalValues.get('board');
 const finalRoadGraph = finalValues.get('rGraph');
 const finalColorGraph = finalValues.get('cGraph');
+
+console.log(Disp.displayBoard(finalBoard));
 
 const finalScore = O.objectives_player_gain(finalColorGraph, finalRoadGraph, finalBoard, objectives);
 

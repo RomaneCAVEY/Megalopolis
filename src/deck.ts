@@ -21,7 +21,7 @@ function deckSize(deck : Deck) : number
 }
 
 
-function createDeck() : Deck
+/* function createDeck() : Deck
 {
 	const numberOfTile : number = 15;
 	function getDeckRec(deck : Deck, n : number) : Deck
@@ -29,6 +29,20 @@ function createDeck() : Deck
 		if (n === 0)
 			return deck;
 		return getDeckRec(deck.push(T.createRandomTile()), n-1);
+	}
+	return getDeckRec(initDeck(), numberOfTile);
+} */
+
+// TO DO : create deck xith seed
+// mock jest
+function createDeckWithSeed(seed : number) : Deck
+{
+	const numberOfTile : number = 15;
+	function getDeckRec(deck : Deck, n : number) : Deck
+	{
+		if (n === 0)
+			return deck;
+		return getDeckRec(deck.push(T.createRandomTile(seed*n+1)), n-1);
 	}
 	return getDeckRec(initDeck(), numberOfTile);
 }
@@ -42,4 +56,4 @@ function getTile(deck : Deck) : [T.Tile, Deck]
 }
 
 
-export {deckIsEmpty, createDeck, getTile, initDeck, deckSize, Deck};
+export {deckIsEmpty, createDeckWithSeed, getTile, initDeck, deckSize, Deck};

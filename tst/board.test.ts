@@ -4,6 +4,8 @@ import {nil} from "../src/common.js";
 import * as B from "../src/board.js";
 import {List} from 'immutable';
 
+const seed : number = 10;
+
 describe('Tile tests', () => {
 	
     test('Create a board should be an empty list of Quater', () => {
@@ -12,7 +14,7 @@ describe('Tile tests', () => {
     });
 
     test('add a "quarter" to board', () => {
-	const t: T.Tile = T.createRandomTile();
+	const t: T.Tile = T.createRandomTile(seed);
 	
 	const g1: B.Board = B.initBoard();
 	const q: List<B.Quarter> = B.tileToQuarter(t, 0,1);
@@ -31,8 +33,8 @@ describe('Tile tests', () => {
     });
 
     test('remove quarter should remove quarter from board', () => {
-	const t: T.Tile = T.createRandomTile();
-	const t2: T.Tile = T.createRandomTile();
+	const t: T.Tile = T.createRandomTile(seed);
+	const t2: T.Tile = T.createRandomTile(seed+10);
 	
 	const g1: B.Board = B.initBoard();
 

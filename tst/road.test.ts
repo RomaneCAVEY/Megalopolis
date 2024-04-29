@@ -1,6 +1,7 @@
 import * as R from '../src/road.js';
 import {List, Map} from 'immutable';
 
+const seed : number = 10;
 
 describe('Road tests', () => {
     
@@ -14,7 +15,7 @@ describe('Road tests', () => {
 
     test('Create Random Road should be random', () => {
 	const e = R.createEmptyRoad();
-        const g = R.createRandomRoad();
+        const g = R.createRandomRoad(seed);
 	expect(g === e).toBe(false);
 	expect(g.filter(x=> x === true).size === 2).toBe(true);
     });

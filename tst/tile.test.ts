@@ -2,6 +2,8 @@ import * as T from '../src/tile.js';
 import * as N from '../src/neighborhood.js';
 import {List} from 'immutable';
 
+const seed : number = 10;
+
 describe('Tile tests', () => {
 	
 	test('Create a empty road dictionnary should be empty', () => {
@@ -31,7 +33,7 @@ describe('Tile tests', () => {
 	});
 
 	test('Create a random neighborhood dictionary should be full with different colors', () => {
-		const g = T.createRandomNeighborhoodDict();
+		const g = T.createRandomNeighborhoodDict(seed);
 		expect(g.get('nw') === g.get('ne')).toBe(false);
 		expect(g.get('nw') === g.get('se')).toBe(false);
 		expect(g.get('nw') === g.get('sw')).toBe(false);
@@ -53,14 +55,14 @@ describe('Tile tests', () => {
 	});
 
 	test('Create a random tile should be empty', () => {
-		const g = T.createRandomTile();
+		const g = T.createRandomTile(seed);
 		expect(g.get('roads').size === 4).toBe(true);
 		expect(g.get('neighborhoods').size === 4).toBe(true);
 		expect(g.size === 2).toBe(true);
 	});
 
 	test('Flip a tile', () => {
-		const g = T.createRandomTile();
+		const g = T.createRandomTile(seed);
 		const gflip = T.flipTile(g);
 		expect(gflip.get("roads").get("ne")).toBe(g.get("roads").get("sw"));
 		expect(gflip.get("roads").get("nw")).toBe(g.get("roads").get("se"));

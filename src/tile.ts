@@ -1,6 +1,7 @@
 import * as R from "./road.js";
 import * as N from "./neighborhood.js";
 import {Map, MapOf} from "immutable";
+import {randomInRange} from "./random.js";
 
 // Immutable dictionary of Road or Neighborhood with their placement on the tile
 type TileDict<T> = MapOf<{nw: T, ne: T, se: T, sw: T}>;
@@ -28,11 +29,11 @@ function createEmptyTile(): Tile
 
 
 // create real random neighborhoods in all tile
-function createRandomNeighborhoodDict() : TileDict<N.Color>
+function createRandomNeighborhoodDict(seed : number) : TileDict<N.Color>
 {
-	const firstN : number = Math.floor(Math.random() * 4);
-	let secondN : number = Math.floor(Math.random() * 3);
-	let thirdN : number = Math.floor(Math.random() * 2);
+	const firstN : number = randomInRange(seed, 0, 4);;
+	let secondN : number = randomInRange(seed, 0, 3);;
+	let thirdN : number = randomInRange(seed, 0, 2);;
 	if (firstN === secondN) 
 		secondN = secondN + 1;
 	if (thirdN === secondN)
@@ -46,25 +47,25 @@ function createRandomNeighborhoodDict() : TileDict<N.Color>
 }
 
 // create real random roads in all tile
-function createRandomRoadDict(nDict : TileDict<N.Color>) : TileDict<R.Road>
+function createRandomRoadDict(seed : number, nDict : TileDict<N.Color>) : TileDict<R.Road>
 {
 	let rDict : TileDict<R.Road> = createEmptyRoadDict();
 	if (nDict.get("ne") !== N.Color.Green)
-		rDict = rDict.set("ne", R.createRandomRoad());
+		rDict = rDict.set("ne", R.createRandomRoad(seed));
 	if (nDict.get("nw") !== N.Color.Green)
-		rDict = rDict.set("nw", R.createRandomRoad());
+		rDict = rDict.set("nw", R.createRandomRoad(seed+1));
 	if (nDict.get("se") !== N.Color.Green)
-		rDict = rDict.set("se", R.createRandomRoad());
+		rDict = rDict.set("se", R.createRandomRoad(seed+20));
 	if (nDict.get("sw") !== N.Color.Green)
-		rDict = rDict.set("sw", R.createRandomRoad());
+		rDict = rDict.set("sw", R.createRandomRoad(seed+300));
 	return rDict;
 }
 
 // create real random tile
-function createRandomTile() : Tile
+function createRandomTile(seed : number) : Tile
 {
-	const nDict : TileDict<N.Color> = createRandomNeighborhoodDict();
-	const rDict : TileDict<R.Road> = createRandomRoadDict(nDict);
+	const nDict : TileDict<N.Color> = createRandomNeighborhoodDict(seed);
+	const rDict : TileDict<R.Road> = createRandomRoadDict(seed, nDict);
 	return Map({roads : rDict, neighborhoods : nDict});
 }
 

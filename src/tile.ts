@@ -31,9 +31,9 @@ function createEmptyTile(): Tile
 // create real random neighborhoods in all tile
 function createRandomNeighborhoodDict(seed : number) : TileDict<N.Color>
 {
-	const firstN : number = randomInRange(seed, 0, 4);;
-	let secondN : number = randomInRange(seed, 0, 3);;
-	let thirdN : number = randomInRange(seed, 0, 2);;
+	const firstN : number = randomInRange(seed, 0, 4);
+	let secondN : number = randomInRange(seed, 0, 3);
+	let thirdN : number = randomInRange(seed, 0, 2);
 	if (firstN === secondN) 
 		secondN = secondN + 1;
 	if (thirdN === secondN)

@@ -107,12 +107,20 @@ function findPositionToAddTile (aList: List<number>, board: Board, tile: Tile, o
     return findPositionToAddTile(aList, board, tile, objectives);
 }
 
+function checkEachQuarter( board: Board, x:number, y:number) : boolean
+{
+    if (findQuarter(board, x+1, y) !== nil || findQuarter(board, x, y+1) !== nil  || findQuarter(board, x-1, y) !== nil || findQuarter(board, x, y-1) !== nil)
+	return true;
+    
+    return false;
+}
+
 function checkMove( board: Board, x:number, y:number): boolean
 {
-    const quarter = findQuarter( board, x, y);
+    if ( checkEachQuarter( board,x,y) || checkEachQuarter( board,x+1,y) ||checkEachQuarter( board,x,y-1) || checkEachQuarter( board,x+1,y-1) )
+	return true;
     
-
-    return true;
+    return false;
 }
 
 // build road graph from board

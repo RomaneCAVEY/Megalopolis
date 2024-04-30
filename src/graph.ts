@@ -49,7 +49,8 @@ function connexCompRec<T>(graph: Graph<T>,
                           notVisited: List<T>,
                           vertexIndex: number,
                           classes: List<List<T>>,
-                          currentClass: number): MapOf<{notVisited: List<T>, classes: List<List<T>>}>
+                          currentClass: number,
+                          queued: number): MapOf<{notVisited: List<T>, classes: List<List<T>>}>
 {
     const v = graph.get('vertices').get(vertexIndex);
     if (v === undefined)
@@ -64,14 +65,18 @@ function connexCompRec<T>(graph: Graph<T>,
 
     // Get the vertex neighbors and only keep the ones that were not yet visited.
     const toVisit = getVertexNeighbors(graph, vertexIndex).filter((e) => newNotVisited.includes(e));
+    //console.log("Visiting (", v.get('x'), v.get('y'), ")\ntoVisit:", toVisit.map((e: B.Quarter) => "(" + e.get('x') + ", " + e.get('y') + ")").toArray());
+    //console.log("queued:", queued);
 
     // If no neighbors and no nodes to visit, then return to parent function call.
-    if (toVisit.size === 0 && notVisited.size === 0)
-        return Map({notVisited: notVisited, classes: classes});
+    if (toVisit.size === 0 && (notVisited.size === 0 || queued > 0))
+        return Map({notVisited: newNotVisited, classes: classes, queued: 0});
     
     // In case there is nothing to visit, take the next Vertex in notVisited and prepare a new class
     const newToVisit = (toVisit.size === 0) ? List<T>([newNotVisited.first()]) : toVisit;
     const newCurrentClass = (toVisit.size === 0) ? newClasses.size : currentClass;
+
+    //console.log("newToVisit size:", newToVisit.size);
     
     // For each neighbor, do a recursive function call.
     const r = newToVisit.reduce(
@@ -80,9 +85,10 @@ function connexCompRec<T>(graph: Graph<T>,
             acc.get('notVisited'),
             graph.get('vertices').indexOf(val),
             acc.get('classes'),
-            newCurrentClass
+            newCurrentClass,
+            acc.get('queued') - 1
         ),
-        Map({notVisited: newNotVisited, classes: newClasses})
+        Map({notVisited: newNotVisited, classes: newClasses, queued: newToVisit.size})
     );
 
     return r;
@@ -94,7 +100,7 @@ function getConnexComponents<T>(graph: Graph<T>): List<List<T>>
     if (notVisited.size === 0)
         return List<List<T>>();
     else
-        return connexCompRec<T>(graph, notVisited, 0, List<List<T>>().push(List<T>()), 0).get('classes', List<List<T>>());
+        return connexCompRec<T>(graph, notVisited, 0, List<List<T>>().push(List<T>()), 0, 0).get('classes', List<List<T>>());
 }
 
 function getComponentEdges<T>(graph: Graph<T>, component: List<T>): List<List<number>>

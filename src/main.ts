@@ -34,11 +34,11 @@ console.log("deckSize: " + deck.size);
 const finalValues: MapOf<{board: B.Board, cGraph: G.Graph<B.Quarter>, rGraph: G.Graph<B.Quarter>}> = deck.reduce((aTriplet, aCard) => {
     const aPlace = B.findPositionToAddTile(B.allPositionToAddTile(aTriplet.get('board')), aTriplet.get('board'), aCard, objectives);
     console.log("placing tile at pos: (" + aPlace.get(0) + ", " + aPlace.get(1) + ")");
-	Disp.displayTile(aCard);
+        Disp.displayTile(aCard);
     const aNewBoard = B.placeTile(aTriplet.get('board'), aCard, aPlace.get(0, 0), aPlace.get(1, 0));
-	/* console.log("Etat du board : ");
-	console.log(aNewBoard);
-	console.log("\n"); */
+        /* console.log("Etat du board : ");
+        console.log(aNewBoard);
+        console.log("\n"); */
     const aNewCGraph = B.buildNeighborhoodGraph(aNewBoard);
     const aNewRGraph = B.buildRoadGraph(aNewBoard);
     return Map({board: aNewBoard, cGraph: aNewCGraph, rGraph: aNewRGraph});
@@ -56,4 +56,4 @@ const hasWon = (finalScore >= objScore);
 
 console.log("final score: " + finalScore + "; hasWon: " + hasWon);
 
- export{finalBoard};
+export{finalBoard};

@@ -55,27 +55,27 @@ function placeTile(board: Board, tile: Tile, x: number, y: number): Board
 
 function addQuarterToBoard(board: Board, quarter: Quarter): Board
 {
-    if (quarter === nil)
+    if (quarter === nil) {
         return board;
-    let nb: Board = board; // TODO: pas fonctionnel
-	// console.log("Add new Quarter : " + quarter.get('x') + "," + quarter.get('y'));
-    if (findQuarter(board, quarter.get('x'), quarter.get('y')) !== nil) {
-        nb = removeQuarterFromBoard(nb, quarter.get('x'), quarter.get('y'));
+    } else if (findQuarter(board, quarter.get('x'), quarter.get('y')) !== nil) {
+        return removeQuarterFromBoard(
+            board,
+            quarter.get('x'),
+            quarter.get('y')
+        ).push(quarter);
+    } else {
+        return board.push(quarter);
     }
-    nb = nb.push(quarter);
-    return nb;
 }
 
 function removeQuarterFromBoard(board: Board, x: number, y: number) : Board
 {
-    const q: Quarter = findQuarter(board, x, y);
-    let nb: Board = board;
-    // nb = board.slice(nb.indexOf(q), 1); ne marche pas mais je ne sais pas pourquoi
-	nb = board.delete(nb.indexOf(q));
-    return nb;
+    return board.delete(
+        board.indexOf(
+            findQuarter(board, x, y)
+        )
+    );
 }
-
-
 
 // return index of vertices' list
 function findQuarterIndexInGraph(graph: G.Graph<Quarter>, x: number, y: number): number
@@ -97,22 +97,30 @@ function allPositionToAddTile(board: Board): List<number>
 function findPositionToAddTile (aList: List<number>, board: Board, tile: Tile, objectives: List<O.Objectives>): List<number>
 {
     if (aList.get(0, 0) === -Infinity)
-	return List([0, 0]);
+        return List([0, 0]);
     const xRandom = Math.floor(Math.random() * (aList.get(0, 0) - aList.get(1, 0)) + aList.get(1, 0));
     const yRandom = Math.floor(Math.random() * (aList.get(2, 0) - aList.get(3, 0)) + aList.get(3, 0));
     
     if ( checkMove(board, xRandom, yRandom) === true)
-	return List([xRandom,yRandom]);
+        return List([xRandom,yRandom]);
 
     return findPositionToAddTile(aList, board, tile, objectives);
 }
 
+function checkEachQuarter( board: Board, x:number, y:number) : boolean
+{
+    if (findQuarter(board, x+1, y) !== nil || findQuarter(board, x, y+1) !== nil  || findQuarter(board, x-1, y) !== nil || findQuarter(board, x, y-1) !== nil)
+        return true;
+    
+    return false;
+}
+
 function checkMove( board: Board, x:number, y:number): boolean
 {
-    const quarter = findQuarter( board, x, y);
+    if ( checkEachQuarter( board,x,y) || checkEachQuarter( board,x+1,y) ||checkEachQuarter( board,x,y-1) || checkEachQuarter( board,x+1,y-1) )
+        return true;
     
-
-    return true;
+    return false;
 }
 
 // build road graph from board

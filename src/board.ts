@@ -168,7 +168,13 @@ function checkMove( board: Board, x:number, y:number): boolean
 function buildRoadGraph(board: Board) : G.Graph<Quarter>
 {
     const graph: G.Graph<Quarter> = board.reduce(
-        (graph: G.Graph<Quarter>, q: Quarter): G.Graph<Quarter> => G.addVertex(graph, q),
+        (graph: G.Graph<Quarter>, q: Quarter): G.Graph<Quarter> => {
+            if( q!==undefined && q.get('color')!==Color.Green )
+                return G.addVertex(graph, q);
+            else{
+                return graph;
+            }
+        },
         G.initGraph<Quarter>()
     );
 
@@ -220,7 +226,7 @@ function buildNeighborhoodGraph(board: Board) : G.Graph<Quarter>
     );
 
     return board.reduce(
-        (g: G.Graph<Quarter> ,q: Quarter): G.Graph<Quarter> => neighborhoodCase(graph, q, board),
+        (g: G.Graph<Quarter> ,q: Quarter): G.Graph<Quarter> => neighborhoodCase(g, q, board),
         graph
     );
 }

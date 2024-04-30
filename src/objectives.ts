@@ -105,7 +105,10 @@ function Point_of_objective(index: number):number{
  *  -You can mark for multiple routes.
  */
 function ring_road(graph: G.Graph<B.Quarter>) : number{
-   return G.getCycles(graph).reduce(((acc,e)=> acc + e.size ) , 0);
+   return G.getCycles(graph).reduce((acc,e)=> {
+        // console.log(e);
+        return acc + e.size;
+ }, 0);
 }
 
 /** Returns the points of the rule "reduce_circulation"
@@ -115,6 +118,10 @@ function ring_road(graph: G.Graph<B.Quarter>) : number{
  *      1pt/road in your city
  */
 function reduce_circulation(graph: G.Graph<B.Quarter>) : number{
+    G.getConnexComponents(graph).reduce((acc,e)=> {
+        // console.log("membre"+e+"\n");
+        return acc + e.size; }, 0);
+        // console.log("\n\n GRAPHE"+JSON.stringify(graph));
         return (-1*G.getConnexComponents(graph).size);
 }
 
@@ -280,6 +287,7 @@ function Size_largest_componentof_each_color(graph: G.Graph<B.Quarter>) : List<n
     return G.getConnexComponents(graph).reduce(
         (acc, e) => {
             const q: B.Quarter = e.get(0);
+            //console.log("membre composante connexe"+e)
             if (q === undefined)
                 return acc;
             
@@ -306,6 +314,7 @@ function Size_largest_componentof_each_color(graph: G.Graph<B.Quarter>) : List<n
  * 1pt/district for the largest boroughs in each of the 4 types (a borough is a related component of neighbourhoods)
  */
 function quarter(graph: G.Graph<B.Quarter>): number {
+    // console.log("\n\n GRAPHE color : "+JSON.stringify(graph));
     //calcul composante connexe pour les couleurs , garde la plus grande pour chacun des 4 types
     return Size_largest_componentof_each_color(graph).reduce(
         (acc, e) =>  {
@@ -319,31 +328,31 @@ function quarter(graph: G.Graph<B.Quarter>): number {
  * @return points of the game
  */
 function objectives_player_gain(graphC: G.Graph<B.Quarter>, graphR: G.Graph<B.Quarter>, board: B.Board, playerObjectives: List<Objectives>) {
-    //console.log("Player score:");
+    console.log("Player score:");
     return playerObjectives.reduce((acc, objective) => {
         switch (objective) {
             case 0:
-                //console.log(" - foreman: " + foreman(graphC));
+               console.log(" - foreman: " + foreman(graphC));
                 return acc + foreman(graphC);
 
             case 1:
-                //console.log(" - quarter: " + quarter(graphC));
+                console.log(" - quarter: " + quarter(graphC));
                 return acc + quarter(graphC);
 
             case 2:
-                //console.log(" - flowers city: " + Flowers_city(board));
+                console.log(" - flowers city: " + Flowers_city(board));
                 return acc + Flowers_city(board);
 
             case 3:
-                //console.log(" - green city: " + Green_city(graphC));
+                console.log(" - green city: " + Green_city(graphC));
                 return acc + Green_city(graphC);
 
             case 4:
-                //console.log(" - reduce circulation: " + reduce_circulation(graphR));
+                console.log(" - reduce circulation: " + reduce_circulation(graphR));
                 return acc + reduce_circulation(graphR);
 
             case 5:
-                //console.log(" - ring road: " + ring_road(graphR));
+                console.log(" - ring road: " + ring_road(graphR));
                 return acc + ring_road(graphR);
 
             default:

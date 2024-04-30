@@ -148,7 +148,7 @@ function isCycle<T>(graph: Graph<T>, component: List<T>): boolean
         toVisit = toVisit.shift();
         visited = visited.set(current, true);
         
-        const r: boolean = graph.get('adj', List()).get(current, List()).some((val: number) => {
+        const r: boolean = graph.get('adj', List()).get(current, List()).some((val : number) => {
             if (visited.get(val) === false) {
                 toVisit = toVisit.push(val);
                 visited = visited.set(val, true);

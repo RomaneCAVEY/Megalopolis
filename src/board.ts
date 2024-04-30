@@ -55,27 +55,28 @@ function placeTile(board: Board, tile: Tile, x: number, y: number): Board
 
 function addQuarterToBoard(board: Board, quarter: Quarter): Board
 {
-    if (quarter === nil)
+    if (quarter === nil) {
         return board;
-    let nb: Board = board; // TODO: pas fonctionnel
-	// console.log("Add new Quarter : " + quarter.get('x') + "," + quarter.get('y'));
-    if (findQuarter(board, quarter.get('x'), quarter.get('y')) !== nil) {
-        nb = removeQuarterFromBoard(nb, quarter.get('x'), quarter.get('y'));
+    } else if (findQuarter(board, quarter.get('x'), quarter.get('y')) !== nil) {
+        return removeQuarterFromBoard(
+	    board,
+	    quarter.get('x'),
+	    quarter.get('y')
+	).push(quarter);
+    } else {
+	return board.push(quarter);
     }
-    nb = nb.push(quarter);
-    return nb;
+    
 }
 
 function removeQuarterFromBoard(board: Board, x: number, y: number) : Board
 {
-    const q: Quarter = findQuarter(board, x, y);
-    let nb: Board = board;
-    // nb = board.slice(nb.indexOf(q), 1); ne marche pas mais je ne sais pas pourquoi
-	nb = board.delete(nb.indexOf(q));
-    return nb;
+    return board.delete(
+	board.indexOf(
+	    findQuarter(board, x, y)
+	)
+    );
 }
-
-
 
 // return index of vertices' list
 function findQuarterIndexInGraph(graph: G.Graph<Quarter>, x: number, y: number): number

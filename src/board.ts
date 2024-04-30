@@ -282,4 +282,5 @@ export {
     findQuarter,
     checkMove,
     checkEachQuarter,
+    findQuarterIndexInGraph,
 };

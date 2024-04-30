@@ -319,31 +319,31 @@ function quarter(graph: G.Graph<B.Quarter>): number {
  * @return points of the game
  */
 function objectives_player_gain(graphC: G.Graph<B.Quarter>, graphR: G.Graph<B.Quarter>, board: B.Board, playerObjectives: List<Objectives>) {
-    console.log("Player score:");
+    //console.log("Player score:");
     return playerObjectives.reduce((acc, objective) => {
         switch (objective) {
             case 0:
-                console.log(" - foreman: " + foreman(graphC));
+                //console.log(" - foreman: " + foreman(graphC));
                 return acc + foreman(graphC);
 
             case 1:
-                console.log(" - quarter: " + quarter(graphC));
+                //console.log(" - quarter: " + quarter(graphC));
                 return acc + quarter(graphC);
 
             case 2:
-                console.log(" - flowers city: " + Flowers_city(board));
+                //console.log(" - flowers city: " + Flowers_city(board));
                 return acc + Flowers_city(board);
 
             case 3:
-                console.log(" - green city: " + Green_city(graphC));
+                //console.log(" - green city: " + Green_city(graphC));
                 return acc + Green_city(graphC);
 
             case 4:
-                console.log(" - reduce circulation: " + reduce_circulation(graphR));
+                //console.log(" - reduce circulation: " + reduce_circulation(graphR));
                 return acc + reduce_circulation(graphR);
 
             case 5:
-                console.log(" - ring road: " + ring_road(graphR));
+                //console.log(" - ring road: " + ring_road(graphR));
                 return acc + ring_road(graphR);
 
             default:

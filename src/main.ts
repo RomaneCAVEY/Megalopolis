@@ -55,3 +55,5 @@ const finalScore = O.objectives_player_gain(finalColorGraph, finalRoadGraph, fin
 const hasWon = (finalScore >= objScore);
 
 console.log("final score: " + finalScore + "; hasWon: " + hasWon);
+
+ export{finalBoard}

@@ -71,11 +71,11 @@ function createRoadBaseOnNeighborhood(nDict : TileDict<N.Color>) : TileDict<R.Ro
 		rDict = rDict.set("nw", R.createVerticalRoad());
 	} else if (nDict.get("nw") === N.Color.Green) {
 		rDict = rDict.set("sw", R.createHorizontalRoad());
-		rDict = rDict.set("se", R.flipRoadOnLeft(R.createCornerRoad()));
+		rDict = rDict.set("se", R.flipRoadOnRight(R.createCornerRoad()));
 		rDict = rDict.set("ne", R.createVerticalRoad());
 	} else if (nDict.get("se") === N.Color.Green) {
 		rDict = rDict.set("ne", R.createHorizontalRoad());
-		rDict = rDict.set("nw", R.flipRoadOnRight(R.createCornerRoad()));
+		rDict = rDict.set("nw", R.flipRoadOnLeft(R.createCornerRoad()));
 		rDict = rDict.set("sw", R.createVerticalRoad());
 	} else if (nDict.get("sw") === N.Color.Green) {
 		rDict = rDict.set("nw", R.createHorizontalRoad());

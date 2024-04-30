@@ -179,7 +179,7 @@ function buildNeighborhoodGraph(board: Board) : G.Graph<Quarter>
     );
 
     return board.reduce(
-        (g: G.Graph<Quarter> ,q: Quarter): G.Graph<Quarter> => roadCase(graph, q, board),
+        (g: G.Graph<Quarter> ,q: Quarter): G.Graph<Quarter> => neighborhoodCase(graph, q, board),
         graph
     );
 }

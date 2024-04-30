@@ -71,25 +71,20 @@ describe('Tile tests', () => {
 	const t2: T.Tile = T.createRandomTile(seed);
 	const b2_new: B.Board = B.placeTile(b1_new, t2, 1,0);
 	
-	const g2:G.Graph<B.Quarter> = B.buildRoadGraph(b2_new); // (0 ,2 ,3)
-	//console.log(JSON.stringify(g2));                         (1, 4, 5)
+	const g2:G.Graph<B.Quarter> = B.buildRoadGraph(b2_new); // (0 ,1 ,2)
+	//console.log(JSON.stringify(g2));                      // ( ,  , 3)
 
 	const quarter0 = B.findQuarterIndexInGraph(g2, 0, 0);
-	const quarter1 = B.findQuarterIndexInGraph(g2, 0, -1);
-	const quarter2 = B.findQuarterIndexInGraph(g2, 1, 0);
-	const quarter3 = B.findQuarterIndexInGraph(g2, 2, 0);
-	const quarter4 = B.findQuarterIndexInGraph(g2, 1, -1);
-	const quarter5 = B.findQuarterIndexInGraph(g2, 2, -1);
+	const quarter1 = B.findQuarterIndexInGraph(g2, 1, 0);
+	const quarter2 = B.findQuarterIndexInGraph(g2, 2, 0);
+	const quarter3 = B.findQuarterIndexInGraph(g2, 2, -1);
 
 	expect(quarter0).toBe(0);
 	expect(quarter1).toBe(1);
 	expect(quarter2).toBe(2);
 	expect(quarter3).toBe(3);
-	expect(quarter4).toBe(4);
-	expect(quarter5).toBe(5);
 	
-        
-        // ahhhhhhhhhh
+       
         
     });
 
@@ -154,16 +149,15 @@ describe('Tile tests', () => {
         const g1:G.Graph<B.Quarter> = B.buildRoadGraph(b1_new);
 	expect(g1.get('adj').get(0, List()).get(0)).toBe(1);
 	expect(g1.get('adj').get(1, List()).get(0)).toBe(0);
-	expect(g1.get('adj').get(1, List()).get(1)).toBe(3);
-	expect(g1.get('adj').get(2, List())).toBe(List());
-	expect(g1.get('adj').get(3, List()).get(0)).toBe(1);
+	expect(g1.get('adj').get(1, List()).get(1)).toBe(2);
+	expect(g1.get('adj').get(2, List()).get(0)).toBe(1);
 
 	const t2: T.Tile = T.createRandomTile(seed);
 	const b2_new: B.Board = B.placeTile(b1_new, t2, 1,0);
 	const g2:G.Graph<B.Quarter> = B.buildRoadGraph(b2_new);
 	//console.log(JSON.stringify(g2))
-	expect(g2.get('adj').get(2, List()).includes(0)).toBe(true);  //(0, 2, 3)   - - -|
-	expect(g2.get('adj').get(2, List()).includes(3)).toBe(true);  //(1, 4, 5)       -|
+	expect(g2.get('adj').get(1, List()).includes(0)).toBe(true);  //(0, 1, 2)   - - -|
+	expect(g2.get('adj').get(1, List()).includes(2)).toBe(true);  //( ,  , 3)       -|
         
     });
 

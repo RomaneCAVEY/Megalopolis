@@ -56,7 +56,6 @@ function placeTile(board: Board, tile: Tile, x: number, y: number): Board
 function addQuarterToBoard(board: Board, quarter: Quarter): Board
 {
     if (quarter === nil) {
-    if (quarter === nil) {
         return board;
     } else if (findQuarter(board, quarter.get('x'), quarter.get('y')) !== nil) {
         return removeQuarterFromBoard(
@@ -67,7 +66,6 @@ function addQuarterToBoard(board: Board, quarter: Quarter): Board
     } else {
         return board.push(quarter);
     }
-    
 }
 
 function removeQuarterFromBoard(board: Board, x: number, y: number) : Board

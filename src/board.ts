@@ -56,15 +56,16 @@ function placeTile(board: Board, tile: Tile, x: number, y: number): Board
 function addQuarterToBoard(board: Board, quarter: Quarter): Board
 {
     if (quarter === nil) {
+    if (quarter === nil) {
         return board;
     } else if (findQuarter(board, quarter.get('x'), quarter.get('y')) !== nil) {
         return removeQuarterFromBoard(
-	    board,
-	    quarter.get('x'),
-	    quarter.get('y')
-	).push(quarter);
+            board,
+            quarter.get('x'),
+            quarter.get('y')
+        ).push(quarter);
     } else {
-	return board.push(quarter);
+        return board.push(quarter);
     }
     
 }
@@ -72,9 +73,9 @@ function addQuarterToBoard(board: Board, quarter: Quarter): Board
 function removeQuarterFromBoard(board: Board, x: number, y: number) : Board
 {
     return board.delete(
-	board.indexOf(
-	    findQuarter(board, x, y)
-	)
+        board.indexOf(
+            findQuarter(board, x, y)
+        )
     );
 }
 
@@ -98,12 +99,12 @@ function allPositionToAddTile(board: Board): List<number>
 function findPositionToAddTile (aList: List<number>, board: Board, tile: Tile, objectives: List<O.Objectives>): List<number>
 {
     if (aList.get(0, 0) === -Infinity)
-	return List([0, 0]);
+        return List([0, 0]);
     const xRandom = Math.floor(Math.random() * (aList.get(0, 0) - aList.get(1, 0)) + aList.get(1, 0));
     const yRandom = Math.floor(Math.random() * (aList.get(2, 0) - aList.get(3, 0)) + aList.get(3, 0));
     
     if ( checkMove(board, xRandom, yRandom) === true)
-	return List([xRandom,yRandom]);
+        return List([xRandom,yRandom]);
 
     return findPositionToAddTile(aList, board, tile, objectives);
 }
@@ -111,7 +112,7 @@ function findPositionToAddTile (aList: List<number>, board: Board, tile: Tile, o
 function checkEachQuarter( board: Board, x:number, y:number) : boolean
 {
     if (findQuarter(board, x+1, y) !== nil || findQuarter(board, x, y+1) !== nil  || findQuarter(board, x-1, y) !== nil || findQuarter(board, x, y-1) !== nil)
-	return true;
+        return true;
     
     return false;
 }
@@ -119,7 +120,7 @@ function checkEachQuarter( board: Board, x:number, y:number) : boolean
 function checkMove( board: Board, x:number, y:number): boolean
 {
     if ( checkEachQuarter( board,x,y) || checkEachQuarter( board,x+1,y) ||checkEachQuarter( board,x,y-1) || checkEachQuarter( board,x+1,y-1) )
-	return true;
+        return true;
     
     return false;
 }

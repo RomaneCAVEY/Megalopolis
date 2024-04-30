@@ -59,12 +59,12 @@ function addQuarterToBoard(board: Board, quarter: Quarter): Board
         return board;
     } else if (findQuarter(board, quarter.get('x'), quarter.get('y')) !== nil) {
         return removeQuarterFromBoard(
-	    board,
-	    quarter.get('x'),
-	    quarter.get('y')
-	).push(quarter);
+        board,
+        quarter.get('x'),
+        quarter.get('y')
+    ).push(quarter);
     } else {
-	return board.push(quarter);
+    return board.push(quarter);
     }
     
 }
@@ -73,7 +73,7 @@ function removeQuarterFromBoard(board: Board, x: number, y: number) : Board
 {
     return board.delete(
 	board.indexOf(
-	    findQuarter(board, x, y)
+        findQuarter(board, x, y)
 	)
     );
 }

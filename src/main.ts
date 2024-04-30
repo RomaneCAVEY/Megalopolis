@@ -26,7 +26,7 @@ const objScore = objectives.reduce((aTempScore, anObjective) => {
 
 console.log("objScore: " + objScore);
 
-const deck : D.Deck = D.createDeckWithSeed(seed*2);
+const deck : D.Deck = D.createGoodDeck(seed*2);
 
 console.log("deckSize: " + deck.size);
 

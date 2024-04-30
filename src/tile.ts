@@ -61,11 +61,44 @@ function createRandomRoadDict(seed : number, nDict : TileDict<N.Color>) : TileDi
 	return rDict;
 }
 
+
+function createRoadBaseOnNeighborhood(nDict : TileDict<N.Color>) : TileDict<R.Road>
+{
+	let rDict : TileDict<R.Road> = createEmptyRoadDict();
+	if (nDict.get("ne") === N.Color.Green) {
+		rDict = rDict.set("se", R.createHorizontalRoad());
+		rDict = rDict.set("sw", R.createCornerRoad());
+		rDict = rDict.set("nw", R.createVerticalRoad());
+	} else if (nDict.get("nw") === N.Color.Green) {
+		rDict = rDict.set("sw", R.createHorizontalRoad());
+		rDict = rDict.set("se", R.flipRoadOnLeft(R.createCornerRoad()));
+		rDict = rDict.set("ne", R.createVerticalRoad());
+	} else if (nDict.get("se") === N.Color.Green) {
+		rDict = rDict.set("ne", R.createHorizontalRoad());
+		rDict = rDict.set("nw", R.flipRoadOnRight(R.createCornerRoad()));
+		rDict = rDict.set("sw", R.createVerticalRoad());
+	} else if (nDict.get("sw") === N.Color.Green) {
+		rDict = rDict.set("nw", R.createHorizontalRoad());
+		rDict = rDict.set("ne", R.flipRoadOnRight(R.flipRoadOnRight(R.createCornerRoad())));
+		rDict = rDict.set("se", R.createVerticalRoad());
+	}
+	return rDict;
+}
+
+
 // create real random tile
 function createRandomTile(seed : number) : Tile
 {
 	const nDict : TileDict<N.Color> = createRandomNeighborhoodDict(seed);
 	const rDict : TileDict<R.Road> = createRandomRoadDict(seed, nDict);
+	return Map({roads : rDict, neighborhoods : nDict});
+}
+
+// create random neighborhood with connexe road in tile
+function createRandomTileWithConnexeRoad(seed : number) : Tile
+{
+	const nDict : TileDict<N.Color> = createRandomNeighborhoodDict(seed);
+	const rDict : TileDict<R.Road> = createRoadBaseOnNeighborhood(nDict);
 	return Map({roads : rDict, neighborhoods : nDict});
 }
 
@@ -83,4 +116,4 @@ function flipTile(tile: Tile): Tile
     return newTileEnd;
 }
 
-export {createEmptyRoadDict, createEmptyNeighborhoodDict,createRandomNeighborhoodDict, createEmptyTile, createRandomTile, Tile, TileDict,flipTile};
+export {createEmptyRoadDict, createEmptyNeighborhoodDict,createRandomNeighborhoodDict, createEmptyTile, createRandomTile, Tile, TileDict,flipTile, createRandomTileWithConnexeRoad};

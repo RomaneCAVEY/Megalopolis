@@ -50,7 +50,7 @@ function connexCompRec<T>(graph: Graph<T>,
                           vertexIndex: number,
                           classes: List<List<T>>,
                           currentClass: number,
-                          queued: number): MapOf<{notVisited: List<T>, classes: List<List<T>>}>
+                          queued: number): MapOf<{notVisited: List<T>, classes: List<List<T>>, queued: number}>
 {
     const v = graph.get('vertices').get(vertexIndex);
     if (v === undefined)

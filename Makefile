@@ -7,7 +7,7 @@ eslint:
 	npx eslint src tst
 
 parcel:
-	npx parcel
+	npx parcel html/index.html --no-cache
 
 test:
 	npx jest

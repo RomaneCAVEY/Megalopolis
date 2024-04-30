@@ -58,6 +58,7 @@ function addQuarterToBoard(board: Board, quarter: Quarter): Board
     if (quarter === nil)
         return board;
     let nb: Board = board; // TODO: pas fonctionnel
+	// console.log("Add new Quarter : " + quarter.get('x') + "," + quarter.get('y'));
     if (findQuarter(board, quarter.get('x'), quarter.get('y')) !== nil) {
         nb = removeQuarterFromBoard(nb, quarter.get('x'), quarter.get('y'));
     }
@@ -69,7 +70,8 @@ function removeQuarterFromBoard(board: Board, x: number, y: number) : Board
 {
     const q: Quarter = findQuarter(board, x, y);
     let nb: Board = board;
-    nb = board.slice(nb.indexOf(q), 1);
+    // nb = board.slice(nb.indexOf(q), 1); ne marche pas mais je ne sais pas pourquoi
+	nb = board.delete(nb.indexOf(q));
     return nb;
 }
 

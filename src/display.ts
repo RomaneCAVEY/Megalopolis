@@ -38,7 +38,7 @@ function strNeighborhood(n : N.Color) : string
 		case N.Color.Green:
 			return "v";
 		case N.Color.Grey:
-			return "g";
+			return "k";
 		case N.Color.Red:
 			return "r";
 		default:
@@ -70,6 +70,8 @@ function displayQuarter(q : B.Quarter)
 
 function displayBoard(b : B.Board)
 {
+	/* console.log("Etat du board : \n");
+	console.log(b); */
 	b.map((e) => displayQuarter(e));
 }
 

@@ -88,7 +88,7 @@ function displayLine(board : B.Board, y : number, begin : number, end : number) 
 {
 	if (begin === end+1)
 		return " ";
-	const q : B.Quarter = B.findQuarter(board, begin, y)
+	const q : B.Quarter = B.findQuarter(board, begin, y);
 	if (q !== nil)
 		return displayQuarter(q) + displayLine(board, y, begin+1, end);
 	else
@@ -99,11 +99,11 @@ function displayLine(board : B.Board, y : number, begin : number, end : number) 
 	}) */
 }
 
-function displayColumn(board : B.Board, ymin : number, ymax : number, xmin : number, xmax : number)
+function displayColumn(board : B.Board, ymin : number, ymax : number, xmin : number, xmax : number) : number
 {
 	// console.log(" ----------------------- Affichage de la ligne : " + ymax + "-----------------------")
 	if (ymax === ymin-1)
-		return;
+		return 0;
 	else 
 		console.log(displayLine(board, ymax, xmin, xmax) + "  " + ymax);
 		return displayColumn(board, ymin, ymax-1, xmin, xmax);

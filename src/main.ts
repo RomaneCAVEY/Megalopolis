@@ -48,7 +48,7 @@ const finalBoard = finalValues.get('board');
 const finalRoadGraph = finalValues.get('rGraph');
 const finalColorGraph = finalValues.get('cGraph');
 
-console.log(Disp.displayBoard(finalBoard));
+Disp.displayBoard(finalBoard);
 
 const finalScore = O.objectives_player_gain(finalColorGraph, finalRoadGraph, finalBoard, objectives);
 
@@ -56,4 +56,4 @@ const hasWon = (finalScore >= objScore);
 
 console.log("final score: " + finalScore + "; hasWon: " + hasWon);
 
- export{finalBoard}
+ export{finalBoard};

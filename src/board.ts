@@ -283,4 +283,6 @@ export {
     checkMove,
     checkEachQuarter,
     findQuarterIndexInGraph,
+    neighborhoodCase,
+    roadCase,
 };

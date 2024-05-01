@@ -50,7 +50,7 @@ const finalColorGraph = finalValues.get('cGraph');
 
 Disp.displayBoard(finalBoard);
 
-const finalScore = O.objectives_player_gain_with_score_display(finalColorGraph, finalRoadGraph, finalBoard, objectives);
+const finalScore = O.objectives_player_gain(finalColorGraph, finalRoadGraph, finalBoard, objectives);
 
 const hasWon = (finalScore >= objScore);
 

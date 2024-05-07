@@ -12,8 +12,8 @@ enum Objectives {
 	Quarter,
 	Flowers_city,
 	Green_city,
-		reduce_circulation,
-		Ring_Road
+	reduce_circulation,
+	Ring_Road
 }
 
 

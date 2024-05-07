@@ -112,16 +112,16 @@ function findPositionToAddTile(aList: List<number>, board: Board, tile: Tile, ob
                         return acc2;
                     } else {
                         const nb: Board = placeTile(board, tile, x, y);
-                        const rg: G.Graph<Quarter> = buildRoadGraph(board);
-                        const ng: G.Graph<Quarter> = buildNeighborhoodGraph(board);
+                        const rg: G.Graph<Quarter> = buildRoadGraph(nb);
+                        const ng: G.Graph<Quarter> = buildNeighborhoodGraph(nb);
 
                         const score = O.objectives_player_gain(ng, rg, nb, objectives);
-                        //console.log("Score for coordinates (" + x + ", " + y + "): " + score);
+                        // console.log("Score for coordinates (" + x + ", " + y + "): " + score);
 
                         //console.log("acc2: ", acc2.toArray());
 
                         if (score > acc2.get(1, -Infinity)) {
-                            //console.log("New best Y score found!");
+                            // console.log("New best Y score found! : " + score);
                             const nacc = acc2.set(1, score).set(0, y);
                             //console.log("nacc2:", nacc.toArray());
                             return nacc;

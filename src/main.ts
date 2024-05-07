@@ -8,7 +8,7 @@ import * as O from "./objectives.js";
 import * as G from "./graph.js";
 import {List, Map, MapOf} from "immutable";
 
-const seed : number = 100;
+const seed : number = 10;
 
 const tile : T.Tile = T.createRandomTile(seed);
 Disp.displayTile(tile);

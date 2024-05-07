@@ -187,7 +187,6 @@ function Flowers_city( board : B.Board ) : number
 
 			else {
 				if ( ((board.filter( (e: B.Quarter) => e !== C.nil && e.get("x") === x && e.get("color") === N.Color.Green )).size)<1) {
-					// console.log("-1 batard");
 					return line(x+1, board, c-1);
 				}
 				else
@@ -195,24 +194,23 @@ function Flowers_city( board : B.Board ) : number
 			}
 		}
 
-			function column(y:number | undefined, board:B.Board, c:number) 
-			{
-					if (y === undefined)
-						return 0;
-					// console.log("column : " + y);
-					if (y === max_y)
-						return c;
-					
-					else {
-						if ( ((board.filter( (e: B.Quarter)=> e !== C.nil && e.get("y") === y && e.get("color") === N.Color.Green )).size)<1 ) {
-							// console.log("-1 batard");
-							return column(y+1, board, c-1);
-						}else
-							return column(y+1, board, c);
-					}
-			}
+		function column(y:number | undefined, board:B.Board, c:number) 
+		{
+				if (y === undefined)
+					return 0;
+				// console.log("column : " + y);
+				if (y-1 === max_y)
+					return c;
+				
+				else {
+					if ( ((board.filter( (e: B.Quarter)=> e !== C.nil && e.get("y") === y && e.get("color") === N.Color.Green )).size)<1 ) {
+						return column(y+1, board, c-1);
+					}else
+						return column(y+1, board, c);
+				}
+		}
 
-			return line(min_x,board,0)+column(min_y,board,0);
+		return line(min_x,board,0)+column(min_y,board,0);
 	}
 	return addPoints() + removePoints();
 }

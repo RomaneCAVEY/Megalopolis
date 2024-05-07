@@ -4,7 +4,7 @@ build:
 	npx tsc -p tsconfig.json
 
 eslint:
-	npx eslint src tst
+	npx eslint src tst html
 
 parcel:
 	npx parcel html/index.html --no-cache

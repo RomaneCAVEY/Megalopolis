@@ -107,13 +107,13 @@ function flipTile(tile: Tile): Tile
 {
     const neighborhoods : TileDict<N.Color> = tile.get("neighborhoods");
     const roads : TileDict<R.Road> = tile.get("roads");
-    const newRoads : TileDict<R.Road> = Map({ne : roads.get("sw"), se : roads.get("nw"), sw : roads.get("ne"), nw : roads.get("se")});
-    const newRoads2 : TileDict<R.Road> = newRoads.map((x)=> return R.flipRoadOnRight(R.flipRoadOnRight(x)));
+    const newRoads : TileDict<R.Road> = Map({ne :  R.flipRoadOnRight(R.flipRoadOnRight(roads.get("sw"))), se : R.flipRoadOnRight(R.flipRoadOnRight(roads.get("nw"))), sw : R.flipRoadOnRight(R.flipRoadOnRight(roads.get("ne"))), nw : R.flipRoadOnRight(R.flipRoadOnRight(roads.get("se")))});
+    //const newRoads2 : TileDict<R.Road> = newRoads.map((x)=>{ return R.flipRoadOnRight(R.flipRoadOnRight(x))});
 
     
     const newNeighborhoods : TileDict<N.Color> = Map({ne : neighborhoods.get("sw"), se : neighborhoods.get("nw"), sw : neighborhoods.get("ne"), nw : neighborhoods.get("se")});
 
-    const newTile : Tile = tile.set("roads", newRoads2);
+    const newTile : Tile = tile.set("roads", newRoads);
     const newTileEnd : Tile = newTile.set("neighborhoods", newNeighborhoods);
 
     return newTileEnd;

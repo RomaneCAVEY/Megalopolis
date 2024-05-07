@@ -8,7 +8,7 @@ import * as O from "./objectives.js";
 import * as G from "./graph.js";
 import {List, Map, MapOf} from "immutable";
 
-const seed : number = 10;
+const seed : number = 100;
 
 const tile : T.Tile = T.createRandomTile(seed);
 Disp.displayTile(tile);
@@ -50,7 +50,7 @@ const finalColorGraph = finalValues.get('cGraph');
 
 Disp.displayBoard(finalBoard);
 
-const finalScore = O.objectives_player_gain(finalColorGraph, finalRoadGraph, finalBoard, objectives);
+const finalScore = O.objectives_player_gain_with_score_display(finalColorGraph, finalRoadGraph, finalBoard, objectives);
 
 const hasWon = (finalScore >= objScore);
 

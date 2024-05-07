@@ -12,8 +12,8 @@ enum Objectives {
 	Quarter,
 	Flowers_city,
 	Green_city,
-		reduce_circulation,
-		Ring_Road
+	reduce_circulation,
+	Ring_Road
 }
 
 
@@ -330,11 +330,52 @@ function quarter(graph: G.Graph<B.Quarter>): number {
  * @return points of the game
  */
 function objectives_player_gain(graphC: G.Graph<B.Quarter>, graphR: G.Graph<B.Quarter>, board: B.Board, playerObjectives: List<Objectives>) {
+	//console.log("Player score:");
+	return playerObjectives.reduce((acc, objective) => {
+		switch (objective) {
+			case 0:
+			//console.log(" - foreman: " + foreman(graphC));
+				return acc + foreman(graphC);
+
+			case 1:
+				//console.log(" - quarter: " + quarter(graphC));
+				return acc + quarter(graphC);
+
+			case 2:
+				//console.log(" - flowers city: " + Flowers_city(board));
+				return acc + Flowers_city(board);
+
+			case 3:
+				//console.log(" - green city: " + Green_city(graphC));
+				return acc + Green_city(graphC);
+
+			case 4:
+				//console.log(" - reduce circulation: " + reduce_circulation(graphR));
+				return acc + reduce_circulation(graphR);
+
+			case 5:
+				//console.log(" - ring road: " + ring_road(graphR));
+				return acc + ring_road(graphR);
+
+			default:
+				return acc;
+		}
+	},0);
+}
+
+
+
+
+/** Returns the points of the player
+ * @param board: board of the game, graphC: graph of color, graphR: graph of the roads , players_objective: liste of objectives
+ * @return points of the game
+ */
+function objectives_player_gain_with_score_display(graphC: G.Graph<B.Quarter>, graphR: G.Graph<B.Quarter>, board: B.Board, playerObjectives: List<Objectives>) {
 	console.log("Player score:");
 	return playerObjectives.reduce((acc, objective) => {
 		switch (objective) {
 			case 0:
-			console.log(" - foreman: " + foreman(graphC));
+				console.log(" - foreman: " + foreman(graphC));
 				return acc + foreman(graphC);
 
 			case 1:
@@ -363,5 +404,4 @@ function objectives_player_gain(graphC: G.Graph<B.Quarter>, graphR: G.Graph<B.Qu
 	},0);
 }
 
-
-export{Objectives,Point_of_objective,initializeObjectives,objectives_player_gain};
+export{Objectives,Point_of_objective,initializeObjectives,objectives_player_gain,objectives_player_gain_with_score_display};

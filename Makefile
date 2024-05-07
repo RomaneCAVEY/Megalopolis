@@ -12,7 +12,7 @@ parcel:
 test:
 	npx jest
 
-run: # build
+run: build
 	@node --experimental-specifier-resolution=node dist/main.js
 
 watch:

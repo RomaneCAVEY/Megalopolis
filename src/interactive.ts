@@ -10,7 +10,7 @@ import {List, Map, MapOf} from "immutable";
 
 type GameState = MapOf<{board: B.Board, colors: G.Graph<B.Quarter>, roads: G.Graph<B.Quarter>, objectives: List<O.Objectives>, deck: D.Deck, turn: number}>;
 
-function initGame(seed: number): GameState {    
+function initGame(seed: number): GameState {
     const board : B.Board = B.initBoard();
     const colorGraph: G.Graph<B.Quarter> = G.initGraph();
     const roadGraph: G.Graph<B.Quarter> = G.initGraph();
@@ -18,9 +18,7 @@ function initGame(seed: number): GameState {
 
     console.log("objectives: " + JSON.stringify(objectives));
 
-    console.log("objScore: " + objScore);
-
-    const deck : D.Deck = D.createDeckWithSeed(seed*2);
+    const deck : D.Deck = D.createGoodDeck(seed*2);
     console.log("deckSize: " + deck.size);
 
     return Map({

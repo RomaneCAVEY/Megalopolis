@@ -101,7 +101,7 @@ function Point_of_objective(index: number):number{
  * @param graph the graph of the road
  * @return points of the rule ring_road
  * Rules:
- *      -1pt/Road section for all roads forming a loop closed. 
+ *      -> 1pt/Road section for all roads forming a loop closed. 
  *  -You can mark for multiple routes.
  */
 function ring_road(graph: G.Graph<B.Quarter>) : number{
@@ -115,7 +115,7 @@ return G.getCycles(graph).reduce((acc,e)=> {
  * @param graph the graph of the road
  * @return points of the rule reduce_circulation
  * Rules:
- *      1pt/road in your city
+ *      -> -1pt/road in your city
  */
 function reduce_circulation(graph: G.Graph<B.Quarter>) : number{
 	G.getConnexComponents(graph).reduce((acc,e)=> {
@@ -402,4 +402,4 @@ function objectives_player_gain_with_score_display(graphC: G.Graph<B.Quarter>, g
 	},0);
 }
 
-export{Objectives,Point_of_objective,initializeObjectives,objectives_player_gain,objectives_player_gain_with_score_display};
+export{Objectives,Point_of_objective,initializeObjectives,objectives_player_gain,objectives_player_gain_with_score_display, ring_road, reduce_circulation, Flowers_city, Green_city};

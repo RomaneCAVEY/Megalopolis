@@ -402,4 +402,4 @@ function objectives_player_gain_with_score_display(graphC: G.Graph<B.Quarter>, g
 	},0);
 }
 
-export{Objectives,Point_of_objective,initializeObjectives,objectives_player_gain,objectives_player_gain_with_score_display, ring_road, reduce_circulation, Flowers_city, Green_city, foreman, Size_largest_componentof_each_color, quarter,objectives_player_gain, objectives_player_gain_with_score_display };
+export{Objectives,Point_of_objective,initializeObjectives,objectives_player_gain,objectives_player_gain_with_score_display, ring_road, reduce_circulation, Flowers_city, Green_city, foreman, Size_largest_componentof_each_color, quarter};

@@ -67,7 +67,7 @@ describe('Objectives tests', () => {
 	
 	const g2: G.Graph<B.Quarter> = B.buildRoadGraph(b2_new);
 	const two: number = O.reduce_circulation(g2);
-	expect(two).toBe(-2)
+	expect(two).toBe(-2);
     });
 
     test('Flowers_city', () => {
@@ -116,7 +116,7 @@ describe('Objectives tests', () => {
 	
 	const g2: G.Graph<B.Quarter> = B.buildNeighborhoodGraph(b2_new);
 	const two: number = O.Green_city(g2);
-	expect(two).toBe(2)
+	expect(two).toBe(2);
 
     });
 

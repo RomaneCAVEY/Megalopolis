@@ -1,9 +1,60 @@
+body {
+    background-color: #333333;
+    color: white;
+    display: grid;
+    grid-template-areas: "title board" "actions board" "footer board";
+    grid-template-columns: 1fr 0fr;
+    grid-template-rows: 0fr 1fr 0fr;
+    margin: 20px;
+    align-items: center;
+    font-family: 'Ubuntu', 'Calibri', sans-serif;
+}
+
+#title {
+    grid-area: title;
+}
+
+#actions {
+    grid-area: actions;
+}
+
+#footer {
+    grid-area: footer;
+}
+
 #board {
     display: grid;
     grid-template-rows: repeat(30, 1fr);
     grid-template-columns: repeat(30, 1fr);
+    aspect-ratio: 1;
+    height: calc(100vh - 60px);
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    grid-area: board;
 }
 
 .tile {
-    border: 1px solid black;
+    /*border: 1px solid white;*/
+    aspect-ratio: 1;
+    width: 100%;
+}
+
+.tile svg {
+    width: 100%;
+    display: block;
+}
+
+button {
+    background: white;
+    color: #333333;
+    border: none;
+    border-radius: 20px;
+    padding: 5px 10px;
+    transition: background .2s ease-in-out;
+    cursor: pointer;
+}
+
+button:hover {
+    background: lightblue;
 }

@@ -62,17 +62,24 @@ describe('Tile tests', () => {
 	});
 
 	test('Flip a tile', () => {
-		const g = T.createRandomTile(seed);
-		const gflip = T.flipTile(g);
-		expect(gflip.get("roads").get("ne")).toBe(g.get("roads").get("sw"));
-		expect(gflip.get("roads").get("nw")).toBe(g.get("roads").get("se"));
-		expect(gflip.get("roads").get("sw")).toBe(g.get("roads").get("ne"));
-		expect(gflip.get("roads").get("se")).toBe(g.get("roads").get("nw"));
-		expect(gflip.get("neighborhoods").get("ne")).toBe(g.get("neighborhoods").get("sw"));
-		expect(gflip.get("neighborhoods").get("nw")).toBe(g.get("neighborhoods").get("se"));
-		expect(gflip.get("neighborhoods").get("sw")).toBe(g.get("neighborhoods").get("ne"));
-		expect(gflip.get("neighborhoods").get("se")).toBe(g.get("neighborhoods").get("nw"));
-		expect(gflip.size).toBe(2);
+	    const g = T.createRandomTile(seed);
+	    const gflip = T.flipTile(g);
+	    // -b -ired     tile create with seed 10
+	    //  g -!grey
+
+	    const new_ne: R.Road = Map( north = false; west = true; south = true; east = false ); //i-
+	    const new_se: R.Road = Map( north = true; west = true; south = false; east = false ); //!-
+	    const new_sw: R.Road = Map( north = false; west = true; south = false; east = true ); //--
+	    
+	    expect(gflip.get("roads").get("ne")).toBe(new_ne);
+	    expect(gflip.get("roads").get("nw")).toBe(g.get("roads").get("nw"));
+	    expect(gflip.get("roads").get("sw")).toBe(new_sw);
+	    expect(gflip.get("roads").get("se")).toBe(new_se);
+	    expect(gflip.get("neighborhoods").get("ne")).toBe(g.get("neighborhoods").get("sw"));
+	    expect(gflip.get("neighborhoods").get("nw")).toBe(g.get("neighborhoods").get("se"));
+	    expect(gflip.get("neighborhoods").get("sw")).toBe(g.get("neighborhoods").get("ne"));
+	    expect(gflip.get("neighborhoods").get("se")).toBe(g.get("neighborhoods").get("nw"));
+	    expect(gflip.size).toBe(2);
 	});
 	
 });

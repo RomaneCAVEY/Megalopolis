@@ -31,4 +31,64 @@ function createRandomRoad(seed : number) : Road
 	return road;
 }
 
-export {Road, createEmptyRoad, createRandomRoad};
+
+function createVerticalRoad() : Road
+{
+	return Map({north: true, west: false, south: true, east: false});
+}
+
+function createHorizontalRoad() : Road
+{
+	return Map({north: false, west: true, south: false, east: true});
+}
+
+// Road : North / West
+function createCornerRoad() : Road
+{
+	return Map({north: true, west: false, south: false, east: true});
+}
+
+function flipRoadOnRight(r : Road) : Road
+{
+	if (r.get("north") && r.get("west")) {
+		r = r.set("north", false);
+		r = r.set("south", true);
+	}
+	else if (r.get("south") && r.get("west")) {
+		r = r.set("west", false);
+		r = r.set("east", true);
+	}
+	else if (r.get("south") && r.get("east")) {
+		r = r.set("south", false);
+		r = r.set("north", true);
+	}
+	else if (r.get("north") && r.get("east")) {
+		r = r.set("east", false);
+		r = r.set("west", true);
+	}
+	return r;
+}
+
+function flipRoadOnLeft(r : Road) : Road
+{
+	if (r.get("north") && r.get("west")) {
+		r = r.set("west", false);
+		r = r.set("east", true);
+	}
+	else if (r.get("south") && r.get("west")) {
+		r = r.set("south", false);
+		r = r.set("north", true);
+	}
+	else if (r.get("south") && r.get("east")) {
+		r = r.set("east", false);
+		r = r.set("west", true);
+	}
+	else if (r.get("north") && r.get("east")) {
+		r = r.set("north", false);
+		r = r.set("south", true);
+	}
+	return r;
+}
+
+
+export {Road, createEmptyRoad, createRandomRoad, createVerticalRoad, createHorizontalRoad, createCornerRoad, flipRoadOnLeft, flipRoadOnRight};

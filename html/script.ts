@@ -1,6 +1,6 @@
-import {finalBoard} from "../src/main.js" 
-import * as B from "../src/board.js" 
-import * as C from "../src/neighborhood.js" 
+import {finalBoard} from "../src/main.js"; 
+import * as B from "../src/board.js"; 
+import * as C from "../src/neighborhood.js"; 
 import {List, Map, MapOf} from 'immutable';
 
 
@@ -8,7 +8,7 @@ import {List, Map, MapOf} from 'immutable';
 const board=finalBoard;
 
 // Tableau d'URLs d'images
-var images = [
+const images = [
 	"empty.png", 
 	"green.png", 
 	"o_c.png", 
@@ -80,7 +80,7 @@ function correspondante(quartier : B.Quarter): any //List<number>
 			return List<number>().push(5).push(270);
 
 		}
-
+	}
 		//check red
 		if (quartier.get('color')===C.Color.Red){
 			if (quartier.get('road').get('east')===true && quartier.get('road').get('west')===true ){
@@ -129,10 +129,10 @@ function correspondante(quartier : B.Quarter): any //List<number>
 			if (quartier.get('road').get('north')===true && quartier.get('road').get('west')===true ){
 				return List<number>().push(8).push(270);
 	
-			}3
+			}
 		}
+		return 0;
 		
-	}
 }
 
 

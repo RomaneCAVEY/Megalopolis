@@ -8,7 +8,7 @@ import * as O from "./objectives.js";
 import * as G from "./graph.js";
 import {List, Map, MapOf} from "immutable";
 
-const seed : number = 10;
+const seed : number = 1604;
 
 const tile : T.Tile = T.createRandomTile(seed);
 Disp.displayTile(tile);
@@ -34,8 +34,11 @@ console.log("deckSize: " + deck.size);
 const finalValues: MapOf<{board: B.Board, cGraph: G.Graph<B.Quarter>, rGraph: G.Graph<B.Quarter>}> = deck.reduce((aTriplet, aCard) => {
     const aPlace = B.findPositionToAddTile(B.allPositionToAddTile(aTriplet.get('board')), aTriplet.get('board'), aCard, objectives);
     console.log("placing tile at pos: (" + aPlace.get(0) + ", " + aPlace.get(1) + ")");
-        Disp.displayTile(aCard);
-    const aNewBoard = B.placeTile(aTriplet.get('board'), aCard, aPlace.get(0, 0), aPlace.get(1, 0));
+	const aNewBoard = B.placeTile(aTriplet.get('board'), (aPlace.get(3) === 1) ? T.flipTile(aCard) : aCard, aPlace.get(0, 0), aPlace.get(1, 0));
+	Disp.displayTile((aPlace.get(3) === 1) ? T.flipTile(aCard) : aCard);
+	//Disp.displayTile(aCard);
+    
+    
         /* console.log("Etat du board : ");
         console.log(aNewBoard);
         console.log("\n"); */

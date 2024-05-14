@@ -1,7 +1,7 @@
 import {nil} from "./common.js";
 import {Road} from "./road.js";
 import {Color} from "./neighborhood.js";
-import {Tile} from "./tile.js";
+import {Tile,flipTile} from "./tile.js";
 import * as G from "./graph.js";
 import * as O from './objectives.js';
 
@@ -94,6 +94,12 @@ function allPositionToAddTile(board: Board): List<number>
     return List<number>([maxX, minX, maxY, minY]);
 }
 
+/** Return List(x,y,score,isFilp)
+ * @param graph A List, the  board, the tile , the objectives list
+ * @return A list  List(x,y,score,isFilp)
+ *
+ */
+//
 function findPositionToAddTile(aList: List<number>, board: Board, tile: Tile, objectives: List<O.Objectives>): List<number>
 {
     if (aList.get(0, 0) === -Infinity)
@@ -104,7 +110,7 @@ function findPositionToAddTile(aList: List<number>, board: Board, tile: Tile, ob
 
     //console.log("\nxRange:", xRange.toArray(), "yRange:", yRange.toArray(), "\n");
 
-    const bestCoords: List<number> = xRange.reduce(
+    const bestCoords_no_flip: List<number> = xRange.reduce(
         (acc, x) => {
             const bestY: List<number> = yRange.reduce(
                 (acc2, y) => {
@@ -144,8 +150,54 @@ function findPositionToAddTile(aList: List<number>, board: Board, tile: Tile, ob
         },
         List([0, 0, -Infinity])
     );
+	const flip_tile=flipTile(tile);
+	const bestCoords_flip: List<number> = xRange.reduce(
+        (acc, x) => {
+            const bestY: List<number> = yRange.reduce(
+                (acc2, y) => {
+                    if (checkMove(board, x, y) === false) {
+                        return acc2;
+                    } else {
+                        const nb: Board = placeTile(board, flip_tile, x, y);
+                        const rg: G.Graph<Quarter> = buildRoadGraph(nb);
+                        const ng: G.Graph<Quarter> = buildNeighborhoodGraph(nb);
 
-    return bestCoords;
+                        const score = O.objectives_player_gain(ng, rg, nb, objectives);
+                        // console.log("Score for coordinates (" + x + ", " + y + "): " + score);
+
+                        //console.log("acc2: ", acc2.toArray());
+
+                        if (score > acc2.get(1, -Infinity)) {
+                            // console.log("New best Y score found! : " + score);
+                            const nacc = acc2.set(1, score).set(0, y);
+                            //console.log("nacc2:", nacc.toArray());
+                            return nacc;
+                        }
+                        return acc2;
+                    }
+                },
+                List([0, -Infinity])
+            );
+            //console.log("bestY:", bestY.toArray());
+            //console.log("acc:", acc.toArray());
+            if (bestY.get(1, -Infinity) > acc.get(2, -Infinity)) {
+                //console.log("New best X score found!");
+                const nacc = acc.set(2, bestY.get(1, -Infinity)).set(1, bestY.get(0, 0)).set(0, x);
+                //console.log("nacc", nacc.toArray());
+                return nacc;
+            } else {
+                return acc;
+            }
+        },
+        List([0, 0, -Infinity])
+    );
+
+	if (bestCoords_flip.get(2, -Infinity)>bestCoords_no_flip.get(2,-Infinity)){
+		return bestCoords_flip.push(1);
+	}
+	else{
+		return bestCoords_no_flip.push(0);
+	}
 }
 
 function checkEachQuarter( board: Board, x:number, y:number) : boolean

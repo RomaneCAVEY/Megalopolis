@@ -8,6 +8,20 @@ body {
     margin: 20px;
     align-items: center;
     font-family: 'Ubuntu', 'Calibri', sans-serif;
+    gap: 20px;
+}
+
+@media screen and (orientation: portrait) {
+    body {
+	grid-template-areas: "title" "actions" "board" "footer";
+	grid-template-columns: 1fr;
+	grid-template-rows: 0fr 0fr 0fr 0fr;
+    }
+
+    #board {
+	height: auto !important;
+	width: calc(100vw - 60px);
+    }
 }
 
 #title {

@@ -103,7 +103,8 @@ function getConnexComponents<T>(graph: Graph<T>): List<List<T>>
         return connexCompRec<T>(graph, notVisited, 0, List<List<T>>().push(List<T>()), 0, 0).get('classes', List<List<T>>());
 }
 
-function getComponentEdges<T>(graph: Graph<T>, component: List<T>): List<List<number>>
+// Not used. Don't remember what it was for anymore.
+/*function getComponentEdges<T>(graph: Graph<T>, component: List<T>): List<List<number>>
 {
     // Get all vertices
     const vertices: List<T> = graph.get('vertices');
@@ -128,7 +129,7 @@ function getComponentEdges<T>(graph: Graph<T>, component: List<T>): List<List<nu
         },
         List<List<number>>([])
     );
-}
+}*/
 
 /** Check if a connex component forms a cycle.
  * @param graph A graph

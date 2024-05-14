@@ -18,7 +18,7 @@ enum Objectives {
 
 
 //Points by objective in the order of the enum Objectives (on the top)
-const Objectives_points = [6,0,2,3,2,14];
+const Objectives_points = [6,0,2,3,0,14];
 
 /** Returns an empty list of Objectives
  * @param 
@@ -115,7 +115,7 @@ return G.getCycles(graph).reduce((acc,e)=> {
  * @param graph the graph of the road
  * @return points of the rule reduce_circulation
  * Rules:
- *      1pt/road in your city
+ *      -1pt/road in your city
  */
 function reduce_circulation(graph: G.Graph<B.Quarter>) : number{
 	G.getConnexComponents(graph).reduce((acc,e)=> {

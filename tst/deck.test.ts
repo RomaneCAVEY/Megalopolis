@@ -11,22 +11,31 @@ describe('Deck tests', () => {
         expect(D.deckIsEmpty(d)).toBe(true);
     });
 
-	test('New deck should have a size of 15', () => {
-		const d : D.Deck = D.createDeckWithSeed(seed);
-		expect(D.deckSize(d)).toBe(15);
-	});
+    test('New deck should have a size of 15', () => {
+        const d : D.Deck = D.createDeckWithSeed(seed);
+        expect(D.deckSize(d)).toBe(15);
+    });
 
-	test('Get tile on a deck', () => {
-		const d : D.Deck = D.createDeckWithSeed(seed);
-		const tb = D.getTile(d);
-		expect(D.deckSize(tb[1])).toBe(14);
-		expect(tb[0]).toBe(d.last());
-		expect(tb[1].includes(tb[0])).toBe(false);
-	});
+    test('Get tile on a deck', () => {
+        const d : D.Deck = D.createDeckWithSeed(seed);
+        const tb = D.getTile(d);
+        expect(D.deckSize(tb[1])).toBe(14);
+        expect(tb[0]).toBe(d.last());
+        expect(tb[1].includes(tb[0])).toBe(false);
+    });
 
-	test('Try to get a tile in an empty deck', () => {
-		const d : D.Deck = D.initDeck();
-		expect(() => D.getTile(d)).toThrow();
-	});
+    test('Try to get a tile in an empty deck', () => {
+        const d : D.Deck = D.initDeck();
+        expect(() => D.getTile(d)).toThrow();
+    });
+
+    test('Make a good deck', () => {
+        const d : D.Deck = D.createGoodDeck(seed);
+        expect(D.deckSize(d)).toBe(15);
+        const tb = D.getTile(d);
+        expect(D.deckSize(tb[1])).toBe(14);
+        expect(tb[0]).toBe(d.last());
+        expect(tb[1].includes(tb[0])).toBe(false);
+    });
 
 });

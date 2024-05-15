@@ -50,49 +50,14 @@ function initializeObjectives(): List<Objectives> {
 	return(recinitializeObjectives(0,createEmptyObjectives(),0));
 }
 
-
-
-/*  OLD VERSION
-
-function initializeObjectives(): List<Objectives> {
-	let obj: List<Objectives> = createEmptyObjectives(); // TODO: not in a functionnal style
-
-	const rand1: number = Math.floor(Math.random() * 5);
-	obj = obj.push(rand1);
-
-	let rand2: number = Math.floor(Math.random() * 5);
-	if (rand1 === rand2){
-		rand2 = (rand2 + 1) % 5;
-	}
-	obj = obj.push(rand2);
-
-	let rand3: number = Math.floor(Math.random() * 5);
-	if (rand1 === rand3 || rand2 === rand3) {
-		rand3 = (rand3 + 1) % 5;
-	}
-	obj = obj.push(rand3);
-
-	let rand4: number = Math.floor(Math.random() * 5);
-	if (rand1 === rand4 || rand2 === rand4 || rand3 === rand4) {
-		rand4 = (rand4 + 1) % 5;
-	}
-	obj = obj.push(rand4);
-
-	let rand5: number = Math.floor(Math.random() * 5);
-	if (rand1 === rand5 || rand2 === rand5 || rand3 === rand5 || rand4 === rand5) {
-		rand5 = (rand5 + 1) % 5;
-	}
-	obj = obj.push(rand5);
-	
-	return obj;
-} */
-
 /** Returns an empty list of Objectives
  * @param index the index of the objectives in the Array Objectives
  * @return the point i-of the objective
  */
 function Point_of_objective(index: number):number{
-		return Objectives_points[index];
+	if (index < 0 || index > 5)
+		return 666;
+	return Objectives_points[index];
 }
 
 

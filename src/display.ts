@@ -48,9 +48,9 @@ function strNeighborhood(n : N.Color) : string
 
 function displayTile(t : T.Tile)
 {
-	console.log(strNeighborhood(t.get("neighborhoods").get("nw")) + strRoad(t.get("roads").get("nw") ) + Reset + "    " 
+	console.log(strNeighborhood(t.get("neighborhoods").get("nw")) + strRoad(t.get("roads").get("nw") ) + Reset + "" 
 	+ strNeighborhood(t.get("neighborhoods").get("ne")) + strRoad(t.get("roads").get("ne")) + Reset);
-	console.log(strNeighborhood(t.get("neighborhoods").get("sw")) + strRoad(t.get("roads").get("sw")) + Reset + "    " 
+	console.log(strNeighborhood(t.get("neighborhoods").get("sw")) + strRoad(t.get("roads").get("sw")) + Reset + "" 
 	+ strNeighborhood(t.get("neighborhoods").get("se")) + strRoad(t.get("roads").get("se")) + Reset + "\n");
 }
 

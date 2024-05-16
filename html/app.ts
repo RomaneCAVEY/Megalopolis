@@ -4,22 +4,88 @@ import * as C from "../src/neighborhood.ts";
 import * as Disp from "../src/display.ts";
 
 const statusText = document.getElementById("status");
+const turnCounterText = document.getElementById("turn-counter");
+const seedInput = document.getElementById("game-seed");
 
-const gameStates: I.GameState = [];
+let gameStates: I.GameState = [];
+
+let displayTurn = 0;
+let gameEnded = true;
+
+let waitingForResponse = false;
 
 document.getElementById("launch-button").addEventListener('click', () => {
-    statusText.innerText = "Calcul en cours...";
-    if (gameStates.length === 0) {
-        gameStates.push(I.initGame(10));
-        console.log(gameStates.slice(-1)[0]);
-        statusText.innerText = "Partie initialisée ! Tour " + gameStates.slice(-1)[0].get('turn');
-        document.getElementById("launch-button").innerText = "Tour suivant";
-    } else {
-        gameStates.push(I.playTurn(gameStates.slice(-1)[0]));
-        statusText.innerText = "Tour " + gameStates.slice(-1)[0].get('turn');
+    gameStates = [];
+    displayTurn = 0;
+    gameEnded = false;
+    gameStates.push(I.initGame(parseInt(seedInput.value)));
+    console.log(gameStates.slice(-1)[0]);
+    statusText.innerText = "Partie en cours.";
+    turnCounterText.innerText = displayTurn;
+    document.getElementById("score").innerText = 0;
+    document.getElementById("score-target").innerText = I.objScore(gameStates[0]);
+
+    document.getElementById("board").innerHTML = makeBoard(gameStates.slice(displayTurn)[0]);
+    document.getElementById("score").innerText = I.score(gameStates.slice(displayTurn)[0]);
+});
+
+document.getElementById("next-turn").addEventListener('click', () => {
+    if (waitingForResponse) {
+        return;
     }
-    document.getElementById("board").innerHTML = makeBoard(gameStates.slice(-1)[0]);
-    document.getElementById("score").innerText = I.score(gameStates.slice(-1)[0]);
+    
+    const lastTurn = gameStates.slice(-1)[0].get('turn');
+    
+    if (displayTurn === lastTurn && !gameEnded) {
+        waitingForResponse = true;
+        statusText.innerText = "Calcul en cours, veuillez patienter...";
+        playTurn(gameStates.slice(-1)[0]).then(
+            (newState) => {
+                gameStates.push(newState);
+                displayTurn = gameStates.slice(-1)[0].get('turn');
+
+                if (displayTurn >= gameStates[0].get('deck').size) {
+                    statusText.innerText = "Partie terminée.";
+                    
+                    if (I.score(gameStates.slice(-1)[0]) >= I.objScore(gameStates[0])) {
+                        statusText.innerText += " Victoire !";
+                    } else {
+                        statusText.innerText += " Défaite.";
+                    }
+                    gameEnded = true;
+                } else {
+                    statusText.innerText = "Partie en cours.";
+                }
+                waitingForResponse = false;
+                turnCounterText.innerText = displayTurn;
+                document.getElementById("board").innerHTML = makeBoard(gameStates.slice(displayTurn)[0]);
+                document.getElementById("score").innerText = I.score(gameStates.slice(displayTurn)[0]);
+            }
+        );
+        
+    } else if (displayTurn < lastTurn) {
+        displayTurn += 1;
+
+        turnCounterText.innerText = displayTurn;
+        document.getElementById("board").innerHTML = makeBoard(gameStates.slice(displayTurn)[0]);
+        document.getElementById("score").innerText = I.score(gameStates.slice(displayTurn)[0]);
+    }
+});
+
+document.getElementById("previous-turn").addEventListener('click', () => {
+    const lastTurn = gameStates.slice(-1)[0].get('turn');
+    
+    if (displayTurn > 0) {
+        displayTurn -= 1;
+    }
+
+    turnCounterText.innerText = displayTurn;
+    document.getElementById("board").innerHTML = makeBoard(gameStates.slice(displayTurn)[0]);
+    document.getElementById("score").innerText = I.score(gameStates.slice(displayTurn)[0]);
+});
+
+document.getElementById("random-seed").addEventListener('click', () => {
+    seedInput.value = Math.floor(Math.random() * 123456789);
 });
 
 
@@ -27,6 +93,13 @@ document.getElementById("display-board-term").addEventListener('click', () => {
     Disp.displayBoard(gameStates.slice(-1)[0].get('board'));
 });
 
+function playTurn(gameState: I.GameState) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(I.playTurn(gameState));
+        });
+    });
+}
 
 function makeBoard(gameState: I.GameState) {
     return gameState.get('board').reduce((acc, e) => {

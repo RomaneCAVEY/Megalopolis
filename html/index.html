@@ -9,10 +9,25 @@
   <body>
     <h1 id="title">Megalopolis</h1>
     <div id="actions">
-      <button id="launch-button">Lancer la partie</button>
-      <button id="display-board-term">Afficher le plateau dans la console</button>
-      <p>Statut : <span id="status">En attente</span></p>
-      <p>Score :<b> <span id="score">0</span> pts</b></p>
+      <fieldset class="input-container">
+	<legend>Seed</legend>
+	<div class="button-row">
+	  <input type="number" id="game-seed" name="game-seed" placeholder="Entrez un nombre" value=1604>
+	  <button id="random-seed" title="Utiliser une seed aléatoire">Aléatoire</button>
+	</div>
+      </fieldset>
+      <div class="button-row">
+
+	<button id="launch-button">Nouvelle partie</button>
+	<button id="display-board-term">Afficher le plateau dans la console</button>
+      </div>
+      <p>Statut : <span id="status">En attente. <span style="color: #777777">Appuyez sur « Nouvelle Partie » pour démarrer.</span></span></p>
+      <div id="turn-controller">
+	<button id="previous-turn">◀</button>
+	<p>Tour <b id="turn-counter">0</b></p>
+	<button id="next-turn">▶</button>
+      </div>
+      <p>Score :<b> <span id="score">0</span> pts</b> sur <span id="score-target">0</span> pts</p>
     </div>
     <div id="board">
     </div>

@@ -47,10 +47,10 @@ function playTurn(game: GameState): GameState {
     
     const aPlace = B.findPositionToAddTile(B.allPositionToAddTile(game.get('board')), game.get('board'), aCard, game.get('objectives'));
     console.log("placing tile at pos: (" + aPlace.get(0) + ", " + aPlace.get(1) + ")");
-    Disp.displayTile(aCard);
     
-    const aNewBoard: B.Board = B.placeTile(game.get('board'), aCard, aPlace.get(0, 0), aPlace.get(1, 0));
-
+    const aNewBoard = B.placeTile(game.get('board'), (aPlace.get(3) === 1) ? T.flipTile(aCard) : aCard, aPlace.get(0, 0), aPlace.get(1, 0));
+    Disp.displayTile((aPlace.get(3) === 1) ? T.flipTile(aCard) : aCard);
+    
     const aNewCGraph: G.Graph<B.Quarter> = B.buildNeighborhoodGraph(aNewBoard);
     const aNewRGraph: G.Graph<B.Quarter> = B.buildRoadGraph(aNewBoard);
     

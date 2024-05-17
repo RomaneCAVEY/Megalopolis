@@ -42,7 +42,7 @@ function createHorizontalRoad() : Road
 	return Map({north: false, west: true, south: false, east: true});
 }
 
-// Road : North / West
+// Road : North / East
 function createCornerRoad() : Road
 {
 	return Map({north: true, west: false, south: false, east: true});

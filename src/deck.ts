@@ -33,8 +33,7 @@ function createGoodDeck(seed : number) : Deck
 	return getDeckRec(initDeck(), numberOfTile);
 }
 
-// TO DO : create deck xith seed
-// mock jest
+
 function createDeckWithSeed(seed : number) : Deck
 {
 	const numberOfTile : number = 15;

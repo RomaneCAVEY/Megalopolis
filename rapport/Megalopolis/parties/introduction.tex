@@ -1,0 +1,17 @@
+\section{Introduction}
+\label{sec:intro}
+
+Le projet Megalopolis est un projet qui s'inspire fortement du jeu de société du même nom qu'il faut programmer en TypeScript par équipe de quatre.
+
+\subsection{Rappel du sujet}
+Il y n'a qu'un seul joueur, ce dernier pioche des tuiles contenues dans une pioche. Chaque tuile est composée de quatre quartiers et d'une route, c'est-à-dire d'un parc, d'une zone commerciale, d'une zone résidentielle, d'une zone industrielle et d'une route traversant les trois dernières zones. Le joueur peut poser deux tuiles côte à côte ou les superposer partiellement ou totalement tant qu'il y a au moins un quartier superposé. Le but du joueur est de maximiser ses points en fonction de 5 objectifs piochés en début de partie.
+
+\subsection{Analyse du sujet}
+Tout d'abord ce jeu repose sur des éléments de base tel que les quartiers, les routes, les tuiles et le plateau de jeu. La mise en place de ces éléments doit être comprise par tous les membres pour être manipulés sans difficultés. 
+
+Dans un deuxième temps, le jeu nécessite la mise en place d'une pioche, d'objectifs et de la boucle de jeu pour pouvoir lancer des parties variées. Ensuite il faut implémenter un graphe pour les routes et un pour les quartiers. Enfin il faut calculer les scores pour avoir un jeu fonctionnel. Afin d'avoir des parties intéressantes, il faut trouver une bonne stratégie pour le joueur et si possible faire un affichage plaisant.
+
+Nous avons essayé de suivre cette ligne directrice lors des séances de projet.
+
+\subsection{Attendus}
+Ce projet comportait une grande contrainte. En effet il était attendu que nous programmions ce projet de manière fonctionnelle et pure. Autrement dit, nous avons du mettre en pratique tout ce que nous avons appris lors du cours de PG104 avec le typage de données proposé par TypeScript, l'utilisation de types immutables tels que les listes et les dictionnaires de la librairie \texttt{Immutable.js}, l'utilisation de fonctions récursives et de fonction très utile comme \texttt{sort}, \texttt{reduce} et \texttt{map} et l'utilisation de Jest pour simplifier l'écriture des tests.

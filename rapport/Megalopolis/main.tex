@@ -1,0 +1,132 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+%\pagestyle{fancy}
+\usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{xcolor}
+\usepackage[french,vlined,lined,linesnumbered,boxed]{algorithm2e}
+\usepackage{parskip}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\RequirePackage{float}
+
+\usepackage{color}
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{.96, .27, .57}
+\lstdefinelanguage{JavaScript}{
+  keywords={break, case, catch, continue, debugger, default, delete, do, else, false, finally, for, function, if, in, instanceof, new, null, return, switch, this, throw, true, try, typeof, var, void, while, with, class, export, throw, implements, import, this, boolean, number},
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  ndkeywords={T, Graph, List, Map, Grey, Blue, Red, Green, Rainbow},
+  keywordstyle=\color{purple}\bfseries,
+  ndkeywordstyle=\color{blue}\bfseries,
+  identifierstyle=\color{black},
+  commentstyle=\color{darkgray}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  sensitive=true
+}
+
+\lstset{ 
+  backgroundcolor=\color{white},   
+  basicstyle=\footnotesize\ttfamily,        
+  breakatwhitespace=false,         
+  breaklines=true,                 
+  captionpos=b,                    
+  commentstyle=\color{mygreen},    
+  firstnumber=1,                
+  frame=single,	                
+  keepspaces=true,                
+  keywordstyle=\color{blue},       
+  language=JavaScript,                 
+  numbers=left,                    
+  numbersep=5pt,                   
+  numberstyle=\tiny\color{darkgray}, 
+  rulecolor=\color{black},        
+  showspaces=false,                
+  showstringspaces=false,          
+  showtabs=false,                  
+  stepnumber=1,                   
+  stringstyle=\color{mymauve},     
+  tabsize=2,	                   
+  title=\lstname            
+}
+
+\begin{document}
+
+\begin{titlepage}
+	\newgeometry{right=2.5cm, left=2.5cm, top=2.5cm, bottom=2.5cm}
+	\begin{center}
+		
+		\vspace*{4cm}
+		{ \Huge \bfseries Projet semestre 6} \\
+		\vspace*{0.5cm}
+		{ \Huge \bfseries Megalopolis}
+
+		\vspace*{1cm}
+		\textbf{Réalisé par :}\\
+		\Large Romane Cavey\\
+            \Large Gael Valade\\
+            \Large Alexis Brandner\\
+            \Large Faustine Lacroix\\
+		
+		\vspace*{3cm}
+
+		\Large \textbf{Département Informatique}\\
+		\Large \textbf{S6 - Année 2023/2024}\\
+		
+        \vspace{5cm}
+		
+		\begin{flushright}
+		    \includegraphics[width=6cm]{images/Enseirb.png}
+        \end{flushright}1
+		
+	\end{center}
+	\restoregeometry
+\end{titlepage}
+
+\newpage
+\tableofcontents
+\newpage
+
+%%% Introduction :
+\input{parties/introduction}
+
+
+%%% Implémentation :
+\input{parties/implémentation}
+
+
+%%% Affichage :
+\input{parties/affichage}
+
+
+%%% Boucle de jeu :
+\input{parties/boucle_de_jeu}
+
+
+%%% Tests :
+\input{parties/tests}
+
+
+%%% Dificultés :
+\input{parties/difficultes}
+
+
+
+%%% Répartition du travail
+\input{parties/repartition_du_travail}
+
+
+%% Conclusion :
+\input{parties/conclusion}
+
+
+
+\end{document}

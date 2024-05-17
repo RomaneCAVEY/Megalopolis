@@ -1,0 +1,18 @@
+\section{Boucle de jeu}
+Une boucle de jeu pour un langage de programmation pour qui la boucle n'est pas naturelle, cela peut paraître surprenant !
+
+\subsection{Fonctionnement du jeu — Pureté}
+Faire une boucle de jeu sans boucle a été l'un des points clés du projet. Pour réaliser la boucle de jeu on effectue un \texttt{reduce} sur les cartes de la pioche. La fonction passée en paramètre du \texttt{reduce } est la suivante: on cherche la position la plus avantageuse pour notre joueur (voir stratégie section \ref{subsec:Strategie} ) et on crée un nouveau plateau et de nouveaux graphes avec la tuile qui a été ajouté. L'accumulateur passé en paramètre est la liste \texttt{Map(board: aNewBoard, cGraph: aNewCGraph, rGraph: aNewRGraph)}, et est initialisé avec des plateaux et graphes vides. \\
+Cela nous permet de garantir la pureté de notre boucle de jeu.
+
+
+\subsection{Stratégie}
+\label{subsec:Strategie}
+Initialement, la pose des tuiles sur le plateau se réalisait de manière aléatoire, ce qui aboutissait le plus souvent à une défaite, avec un score fréquemment négatif. Pour remédier à ce problème, nous avons décider de mettre en place une stratégie.
+
+Afin de ne jouer que les meilleurs coups pour chaque tuile, on teste toutes les positions possibles en calculant le score, en considérant la tuile à cette position donnée. On ne garde que le meilleur coup (s'il y en a plusieurs, on ne garde que le premier). Pour augmenter notre score, nous avons augmenté notre nombre de coups possibles~: grâce à la fonction \texttt{flip\_tile}, nous prenons aussi en compte la rotation de la tuile. Ainsi si le fait de tourner la tuile nous est avantageux, c'est ce qu'on fait sinon on garde la tuile telle quel. 
+
+\subsection{Améliorations possibles}
+L'un des défauts de notre stratégie est qu'elle privilégie le maximum local et pas forcément le maximum global.
+Pour encore optimiser la stratégie, on pourrait faire du deep learning ou faire le calcul de score sur les coups suivants. 
+La contrainte de temps ne nous a pas permis d'approfondir ces pistes.

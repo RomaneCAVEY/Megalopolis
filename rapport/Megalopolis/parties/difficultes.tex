@@ -1,0 +1,11 @@
+\section{Difficultés}
+
+Lors de ce projet nous avons rencontré des difficultés qui nous ont posés problèmes, il nous semble important d'en parlé car c'est des problèmes qu'on apprend le plus. Par ailleurs, pour la plupart d'entre nous, c'était notre premier projet en ts.
+
+\subsection{Problème de pureté}
+
+La programmation fonctionnelle repose en partie sur la création de nouvelles instances à chaque appel de fonction. Donc en théorie nous avions besoin que du mot clé \texttt{const} pour déclarer des variables constantes et non de \texttt{let}. Cependant nous n'avons pas toujours réussi à appliquer cela par exemple dans le fichier \texttt{src/graph.ts}, la fonction \texttt{isCycle} utilise une boucle \texttt{while} (l'implémentation étant plus simple comme ça, bien qu'aussi réalisable avec une fonction récursive) et donc nécessite l'utilisation de variables déclarées avec le mot-clé \texttt{let}, celles-ci devant être modifiables après déclaration.
+
+\subsection{Envie de faire des boucles}
+Par habitude, avec les langages C ou Python, nous avons l'automatisme de faire des boucles, ce qui s'est avéré plus complexe en programmation fonctionnelle. Pour la boucle de jeu notamment, nous avons dû utiliser un \texttt{reduce}, sur les cartes du \texttt{Deck}. Les \texttt{reduce} et \texttt{map} ont remplacé les boucles classiques, puisqu'ils permettent d'itérer sur les éléments d'une liste. Dans certains cas, nous avons passé en paramètre un compteur $i$ , qu'on décrémente ou incrémente à chaque appel de la fonction, telle que la condition d'arrêt dépend de la valeur de $i$. 
+

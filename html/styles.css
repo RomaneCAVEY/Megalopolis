@@ -30,6 +30,9 @@ body {
 
 #actions {
     grid-area: actions;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 #footer {
@@ -48,6 +51,22 @@ body {
     grid-area: board;
 }
 
+#turn-controller {
+    background: white;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    width: fit-content;
+    border-radius: 20px;
+    color: black;
+    font-weight: bold;
+}
+
+#turn-controller p {
+    margin: 0;
+    text-align: center;
+    align-self: center;
+}
+
 .tile {
     /*border: 1px solid white;*/
     aspect-ratio: 1;
@@ -59,14 +78,27 @@ body {
     display: block;
 }
 
-button {
+button, input {
     background: white;
     color: #333333;
     border: none;
-    border-radius: 20px;
+    border-radius: 15px;
     padding: 5px 10px;
     transition: background .2s ease-in-out;
+}
+
+input:disabled, button:disabled {
+    cursor: not-allowed;
+    color: #bbbbbb;
+}
+
+button {
     cursor: pointer;
+}
+
+fieldset {
+    border-radius: 15px;
+    width: fit-content;
 }
 
 button:hover {

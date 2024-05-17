@@ -36,6 +36,8 @@ Une fois sur la page vous pouvez lancer la partie et cliquer sur "tour suivant" 
 
 Si vous souhaitez voir le plateau dans le termial web, inspectez la page, allez dans l'onglet "console". Vous aurez la liste des coups jouez ainsi que le plateau si vous cliquez sur "Afficher le plateau dans la console".
 
+Vous pouvez aussi changer la seed si vous le souhaitez.
+
 ## Liens utiles :
 
 La page du sujet :
@@ -83,6 +85,8 @@ Use Ctrl + left-click on the address in the terminal to open it in your browser.
 Once on the page you can start the game and click on "next turn" to see the tiles being placed.
 
 If you want to see the board in the termial web, inspect the page and go to the "console" tab. You will see the list of moves played and the board if you click on "Afficher le plateau dans la console".
+
+You can also change the seed if you wish.
 
 ## Useful links :
 
